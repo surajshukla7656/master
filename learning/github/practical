@@ -1,0 +1,261 @@
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git log
+commit f92ade63fd0fda300ea27db374ee085cf0425533 (HEAD -> master)
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:47:52 2020 +0530
+
+    commited
+
+commit af7c4891692a4bb89209a3f1d399e4f3ae7c1ca9
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:40:20 2020 +0530
+
+    commited
+
+commit ea1c231bb5d29e31b2653273639a5abd13a2b1e7
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:04:00 2020 +0530
+
+    Committed Successfully
+
+commit 81e48937f97d5de34362bdbd918d2d119a8e21de
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 20:44:23 2020 +0530
+
+    Committed successful
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git log -p -1
+commit f92ade63fd0fda300ea27db374ee085cf0425533 (HEAD -> master)
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:47:52 2020 +0530
+
+    commited
+
+diff --git a/learning/github/tutorials b/learning/github/tutorials
+index 26c510f..88a7c15 100644
+--- a/learning/github/tutorials
++++ b/learning/github/tutorials
+@@ -4,4 +4,8 @@ git commit
+ 
+ git add -A
+ 
+-git add
+\ No newline at end of file
++git add <filename>
++
++git commit -m <message>
++
++git checkout  <filename>    --> copy previous files from cloud
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git diff 
+diff --git a/learning/github/tutorials b/learning/github/tutorials
+index 88a7c15..9e57252 100644
+--- a/learning/github/tutorials
++++ b/learning/github/tutorials
+@@ -9,3 +9,9 @@ git add <filename>
+ git commit -m <message>
+ 
+ git checkout  <filename>    --> copy previous files from cloud
++
++git checkout -f
++
++git log
++
++git log -p -<no of lines>
+\ No newline at end of file
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   learning/github/tutorials
+
+no changes added to commit (use "git add" and/or "git commit -a")
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git add -A
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git diff 
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ 
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git diff 
+diff --git a/learning/github/tutorials b/learning/github/tutorials
+index 9e57252..9390c5b 100644
+--- a/learning/github/tutorials
++++ b/learning/github/tutorials
+@@ -12,6 +12,6 @@ git checkout  <filename>    --> copy previous files from cloud
+ 
+ git checkout -f
+ 
+-git log
++git log#
+ 
+ git log -p -<no of lines>
+\ No newline at end of file
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git diff 
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   learning/github/tutorials
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   learning/github/tutorials
+
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit
+Aborting commit due to empty commit message.
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit -m "hi"
+[master 2d70fe7] hi
+ 1 file changed, 6 insertions(+)
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   learning/github/tutorials
+
+no changes added to commit (use "git add" and/or "git commit -a")
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git add -A
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit -m"surajshukla
+> :
+> "
+[master b70f02c] surajshukla :
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+nothing to commit, working tree clean
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit -a -m"skipped staging area and fixed "
+[master 101bca6] skipped staging area and fixed
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git log
+commit 101bca651222218e0d1b39a05b7fbd4f315be2ce (HEAD -> master)
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 22:10:29 2020 +0530
+
+    skipped staging area and fixed
+
+commit b70f02cc70174277dcc83db1a3e9f72dac923bf0
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 22:09:34 2020 +0530
+
+    surajshukla
+    :
+
+commit 2d70fe77e02117bdc220ff08bfe54fd6430590e2
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 22:08:58 2020 +0530
+
+    hi
+
+commit f92ade63fd0fda300ea27db374ee085cf0425533
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:47:52 2020 +0530
+
+    commited
+
+commit af7c4891692a4bb89209a3f1d399e4f3ae7c1ca9
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:40:20 2020 +0530
+
+    commited
+
+commit ea1c231bb5d29e31b2653273639a5abd13a2b1e7
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 21:04:00 2020 +0530
+
+    Committed Successfully
+
+commit 81e48937f97d5de34362bdbd918d2d119a8e21de
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 20:44:23 2020 +0530
+
+    Committed successful
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+nothing to commit, working tree clean
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit
+On branch master
+nothing to commit, working tree clean
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ ls
+learning
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git log -p -2
+commit 101bca651222218e0d1b39a05b7fbd4f315be2ce (HEAD -> master)
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 22:10:29 2020 +0530
+
+    skipped staging area and fixed
+
+diff --git a/learning/github/tutorials b/learning/github/tutorials
+index 371e95e..374bddd 100644
+--- a/learning/github/tutorials
++++ b/learning/github/tutorials
+@@ -20,5 +20,5 @@ git diff            ---->compares working directory from staging area
+ 
+ git diff --staged   ---->compares staging area from last commit
+ 
+-
++git commit -a -m"skipped staging area and fixed "
+ 
+
+commit b70f02cc70174277dcc83db1a3e9f72dac923bf0
+Author: surajshukla2703 <surajshukla2703@gmail.com>
+Date:   Sun Jul 12 22:09:34 2020 +0530
+
+    surajshukla
+    :
+
+diff --git a/learning/github/tutorials b/learning/github/tutorials
+index 9e57252..371e95e 100644
+--- a/learning/github/tutorials
++++ b/learning/github/tutorials
+@@ -14,4 +14,11 @@ git checkout -f
+ 
+ git log
+ 
+-git log -p -<no of lines>
+\ No newline at end of file
++git log -p -<no of lines>
++
++git diff            ---->compares working directory from staging area
++
++git diff --staged   ---->compares staging area from last commit
++
++
++
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   learning/github/tutorials
+
+no changes added to commit (use "git add" and/or "git commit -a")
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   learning/github/tutorials
+
+no changes added to commit (use "git add" and/or "git commit -a")
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git add -A
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit
+Aborting commit due to empty commit message.
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit -a -m "git removmafj"
+[master a4be72d] git removmafj
+ 1 file changed, 29 insertions(+), 24 deletions(-)
+ rewrite learning/github/tutorials (91%)
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status -s
+ M learning/github/tutorials
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ touch .gitignore
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   learning/github/tutorials
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+no changes added to commit (use "git add" and/or "git commit -a")
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git add -A
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit
+Aborting commit due to empty commit message.
+surajshukla2703@surajshukla2703:~/Documents/nextpython$ git commit
