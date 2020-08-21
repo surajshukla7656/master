@@ -1,0 +1,41 @@
+git status
+
+git commit
+
+git add -A                                ---> adding  all files or directories for tracking
+
+git add <filename>                        ---> adding a file or directory for tracking
+
+git commit -m <message>                   ---> committing without going through vim  Editor
+
+git checkout  <filename>                  ---> copy all previous files from cloud
+
+git checkout -f                           --->copying a single file from cloud
+
+git log                                   --->to see the commits performed
+
+git log -p -<no of lines>                 --->to see specific last commits performed
+
+git diff                                  --->compares working directory from staging area
+
+git diff --staged                         --->compares staging area from last commit
+
+git commit -a -m"skipped staging area and fixed "   --->commiting without staging(staging skipping)
+
+git rm <filename>                         --->removes file from working directory as well as from harddisk(current working directory)
+
+git rm --cached^<filename>                ---> removes file only git cloud ,not from  harddisk(current working directory)
+
+git status -s                             --->to get summarize view of git status
+
+---> to ignore files write its name in gitignore directory
+
+git branch                                ---> to show branches 
+
+git branch  <branchname>                  ---> to create a branch
+
+git checkout <branchname>                 ---> to go into that branch
+
+git remote add <reponame> <web.address>   --->to connect remote repository with the desktop
+
+git branch -d <branchname>                --->to delete a branch
