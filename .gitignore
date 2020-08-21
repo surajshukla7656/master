@@ -1,0 +1,6 @@
+<filename>                         ---> to ignore the file
+
+*.<extension>                      ---> to ignore the files having the extension <extension> 
+
+/<extension>                       ---> to ignore a file from the root directory
+
