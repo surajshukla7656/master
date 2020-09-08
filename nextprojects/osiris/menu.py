@@ -2,25 +2,25 @@
 specific commands on the database"""
 
 import operations
+import main
        
 # menu interface for the user
 def menu():
     username=operations.credential_verifications()
     operations.welcome_message()
     while True:
-        try:
-            prompt=input(f"\033[1;32mShuklaBookDepot@{username}$\033[1;37m ")          #input of executing command 
+       
+        input_command=input(f"\033[1;35mShuklaBookDepot@{username}$\033[1;37m ")          #input of executing command 
+        command=main.operator_manager(input_command)
+      
+        if command=="exit()":
+            print("bye")
+            break
 
-            if prompt=="exit":
-                print("bye")
-                break
-
-            elif prompt!=None:
-                eval(f"operations.{prompt}")
-
-        except :
-            print("invalid command!")
-
+        elif command!=None:
+            eval(f"operations.{command}")
+            operations.commit()
+    
     operations.connection_close()
 
 if __name__=="__main__":

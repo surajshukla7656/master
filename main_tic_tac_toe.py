@@ -1,4 +1,5 @@
 import random
+import think
 import time
 import os
 
@@ -27,6 +28,14 @@ def makestring() :
             makestring()
             playersturn()
             
+        elif element == -1 and str1[index] == "X" :
+            
+            data[index] = -1
+            
+            makestring()
+            compturn()
+            
+            
     n = 1
     
     for i in range(9) :
@@ -50,16 +59,25 @@ def compturn() :
     
     os.system("clear")
     
-    available = []
+    move = think.compthink(data)
     
-    for i in range(9) :
+    if (move == None) :
+        available = []
         
-        if data[i] == 0 :
+        for i in range(9) :
             
-            available += [i]
+            if data[i] == 0 :
+                
+                available += [i]
+        
+        if 4 in available :
             
-    move = random.choice(available)
-    
+            move = 4
+        
+        else :
+            move = random.choice(available)
+        
+        
     data[move] = -1
     
     makestring()
