@@ -82,5 +82,6 @@
         ".vsh": "v run",
         ".sass": "sass --style expanded",
         ".cu": "cd $dir && nvcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
-    }
+    },
+    "python.pythonPath": "/usr/bin/python3"
 }
