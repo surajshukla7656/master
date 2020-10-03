@@ -1,0 +1,91 @@
+---> THIS IS A PYTHON-SQL DATABASE PROGRAM TO MAINTAIN 
+A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE
+
+
+---> operator_manager() - AN OPERATOR WHICH PROCESSESS THE INPUT FROM THE MENU INTERFACE's PROMPT TO RUN THE DESIRE CORRESPONDING COMMAND
+    
+    1. replaces space by underscore 
+    2. adds parentheses at the if not present 
+    3. lowers the case 
+
+
+********************************** CRUD *************************************
+---> CREATE OPERATIONS
+
+1. add_laptop(brand,model_no,processor=None,graphic_card=None,os=None,ram=None,display=None,storage=None,camera=None,battery=None,keyboard=None,other_inputs=None,speakers=None,ports=None,wifi=None,bluetooth=None,weight=None,warranty=None,year_of_release=None,manufacture_in_country=None,stocks=None,price=None,productcode=None,others=None)
+             
+    PARAMETERS:
+        1.brand
+        2.model_no
+        3.processor
+        4.graphic_card
+        5.os
+        6.ram
+        7.display
+        8.storage
+        9.camera
+        10.battery
+        11.keyboard
+        12.other_inputs
+        13.speakers
+        14.ports
+        15.wifi
+        16.bluetooth
+        17.weight
+        18.warranty
+        19.year_of_release
+        20.manufacture_in_country
+        21.stocks
+        22.price
+        23.productcode
+        24.others
+
+2. add_laptops()
+        it uses add_laptop to add LAPTOPs one by one
+
+---> RETRIEVE OPERATIONS
+
+1. display(brand=None,model_no=None,processor=None,graphic_card=None,os=None,ram=None,display=None,storage=None,camera=None,battery=None,keyboard=None,other_inputs=None,speakers=None,ports=None,wifi=None,bluetooth=None,weight=None,warranty=None,year_of_release=None,manufacture_in_country=None,stocks=None,price=None,others=None,productcode=None):
+
+    PARAMETERS:
+        1.brand
+        2.model_no
+        3.processor
+        4.graphic_card
+        5.os
+        6.ram
+        7.display
+        8.storage
+        9.camera
+        10.battery
+        11.keyboard
+        12.other_inputs
+        13.speakers
+        14.ports
+        15.wifi
+        16.bluetooth
+        17.weight
+        18.warranty
+        19.year_of_release
+        20.manufacture_in_country
+        21.stocks
+        22.price
+        23.productcode
+        24.others
+
+
+2. display_all()
+
+---> UPDATE OPERATIONS
+
+1. update_s(brand,model_no,parameter,update) - to update latop with single parameter
+
+    1.brand
+    2.model_no
+    3.parameter
+    4.update
+
+
+
+
+

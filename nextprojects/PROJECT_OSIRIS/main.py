@@ -30,7 +30,6 @@ def welcome_message():
 TO DATABASE MENU INTERFACE 
 DEVELOPED BY SURAJ SHUKLA''')
 
-
 # to highlight data
 def color(col=7):
 
@@ -46,16 +45,22 @@ def separator(num,symbol="*"):
 
 # to modifying input command
 def operator_manager(command):
+
     prompt=""
+
+    # replacing space by underskore
     for char in command:
         if char==" ":
             prompt+="_"
         else:
             prompt+=char
+
+    # add parentheses at the end if absent
     if "(" and ")" not in prompt:
         prompt+="()"
     
-    command=prompt
+    
+    command=prompt.lower()
     return command
 
 
@@ -128,9 +133,7 @@ def display(brand=None,model_no=None,processor=None,graphic_card=None,os=None,ra
                 print(f'''{color(6)}{x}:{color()}{y}''')
 
 
-
-
-# to display all laptops
+# to display all data of all  laptops
 def display_all():
 
     query='SELECT * FROM LAPTOP '
@@ -139,14 +142,52 @@ def display_all():
 
     laptopsDetails=cursor.fetchall()                                                                        # dict containing details of all laptops in dict format 
 
-    for laptop in laptopsDetails:                                                                           # to print laptop details one by one
+    for laptop in laptopsDetails:                                                                           # contain single laptop detail one by one
 
-        print('\n\n\n')  
+        print('\n\n')  
 
-        for x,y in laptop.items():
+        for x,y in laptop.items():                                                                          # extracting information from the laptop instance one by one
 
             print(f'''{color(6)}{x}:{color()}{y}''')
 
+
+# to display only names of product 
+def display_products():
+
+    query='SELECT BRAND,MODEL_NO FROM LAPTOP '
+
+    cursor.execute(query)
+
+    laptopsDetails=cursor.fetchall()                                                                        # dict containing details of all laptops in dict format 
+
+    print(F'TOTAL - {len(laptopsDetails)}\n')
+
+    for laptop in laptopsDetails:                                                                           # contain single laptop detail one by one
+
+        for x,y in laptop.items():                                                                          # extracting information from the laptop instance one by one
+
+            print(f'{color(6)}{x}:{color()}{y}',end='\t')
+
+        print('\n')  
+
+
+
+# to update  a single parameter 
+
+def update_s(brand,model_no,parameter,update):
+
+    p_meter=(update,brand,model_no)
+    
+    query=f'UPDATE LAPTOP SET {parameter}'+'=%s WHERE BRAND=%s AND MODEL_NO=%s'
+
+    cursor.execute(query,p_meter)
+
+    connector.commit()
+
+    print(f'Successfully Updated {brand}-{model_no} to {update}')
+
+
+# 
 
    
 if __name__=='__main__':
