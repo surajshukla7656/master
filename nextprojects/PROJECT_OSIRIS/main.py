@@ -95,7 +95,7 @@ def add_laptops():
 
         for detail in detail_dict:
 
-            var=input(f'{color(5)}Enter {detail}:{color()}')
+            var=input(f'\n{color(4)}Enter {detail}:{color()}')
             
             if var=='' and detail=='brand' or var=='' and detail=='model_no' or var=='skip' or var=='stop':  # to skip parameters,break inner loop
                 break
@@ -154,7 +154,7 @@ def display_all():
 # to display only names of product 
 def display_products():
 
-    query='SELECT BRAND,MODEL_NO FROM LAPTOP '
+    query='SELECT PRODUCTCODE,BRAND,MODEL_NO FROM LAPTOP '
 
     cursor.execute(query)
 
@@ -187,11 +187,97 @@ def update_s(brand,model_no,parameter,update):
     print(f'Successfully Updated {brand}-{model_no} to {update}')
 
 
-# 
+# updating specific details of products using productcode
+
+def update():
+
+    print('''UPDATE COMMAND:
+ENTER PRODUCT CODE OF PRODUCT FOR UPDATION
+s ---> skip
+n ---> move to next\n\n''')
+
+    while True:
+
+        parameters=('BRAND','MODEL_NO','PROCESSOR','GRAPHIC_CARD','OS','RAM','DISPLAY','STORAGE','CAMERA','BATTERY','KEYBOARD','OTHER_INPUTS','SPEAKERS','PORTS','WIFI','BLUETOOTH','WEIGHT','WARRANTY','YEAR_OF_RELEASE','MANUFACTURE_IN_RELEASE','STOCKS','PRICE','OTHERS')
+
+        product_code_instance=input(f'{color(4)}Enter productcode:{color()}')
+
+        if product_code_instance=='s':                                                               # enter s to stop further updating and exiting the function
+
+            break
+
+        else:
+
+            for parameter in parameters:
+
+                p_instance=input(f'{color(4)}Enter {parameter}{color()}:')                           # input of parameter to update 
+
+                if p_instance=='n'  or p_instance=='':                                               # skiping and moving on next parameter 
+
+                    continue
+
+                elif p_instance=='s':                                                                 # skipping and moving to next product 
+
+                    break
+
+                else:
+
+                    query=f'UPDATE LAPTOP SET {parameter}=\'{p_instance}\' WHERE PRODUCTCODE=\'{product_code_instance}\''
+
+                    cursor.execute(query)
+
+                    connector.commit()
+
+                    print(f'Successfully Updated! {parameter} of product{product_code_instance} -----> {p_instance}')
+
+
+# to delete a product completely from the database
+
+def delete_p():
+
+    productcode=input(f'\n{color(4)}Enter productcode:{color()}')                         # input of identity of product
+
+    p_code=(productcode,)                                                                 # converting productcode to use it in cursor
+
+    query='SELECT BRAND,MODEL_NO FROM LAPTOP WHERE PRODUCTCODE=%s'
+
+    cursor.execute(query,p_code)
+
+    extra_details=cursor.fetchall()
+
+    if len(extra_details)!=0:                                                              # if product exist
+
+        extra_details=list(extra_details[0].values())                                      # retrieving useful data 
+
+        print(f'\nWARNING! NOT RECOVERABLE AFTER DELETION\n')
+        
+        confirm=input(f'{color(4)}Are You Sure You Want To  Delete(Y/n){color()} \'{productcode}-{extra_details[0]}-{extra_details[1]}\' {color(4)}:{color()}')
+
+        if confirm=='y' or confirm=='yes':
+
+            query='DELETE FROM LAPTOP WHERE PRODUCTCODE=%s'
+
+            cursor.execute(query,p_code)
+
+            connector.commit()
+
+            print(f'\nSuccessfully Deleted - {productcode}-{extra_details[0]}-{extra_details[1]}')
+
+        elif confirm=='n' or confirm=='no':
+
+            print('\nNot Deleted!')
+
+        else:
+
+            print('\nUnkown Input!')
+
+    else:
+
+        print('\nOops! Product Not Exist')
 
    
 if __name__=='__main__':
-    #add_laptop('HP','THINKPAD','10TH GEN INTEL CORE i8','INTEL UHD','WINDOWS 10 HOME','LPDDR4 4GB','16 INCH FULL HD+ ','512 SSD','5MP WEBCAM','8 HOURS BACKUP','BACKLIGHT KEYS MAGIC KEYBOARD','MIC','DOLBY MODE','2 USB 1 USB TYPE-C','10','5','2 KG','1 YEAR','2020','INDIA',34,29999)
+    add_laptop('HP','THINKPAD','10TH GEN INTEL CORE i8','INTEL UHD','WINDOWS 10 HOME','LPDDR4 4GB','16 INCH FULL HD+ ','512 SSD','5MP WEBCAM','8 HOURS BACKUP','BACKLIGHT KEYS MAGIC KEYBOARD','MIC','DOLBY MODE','2 USB 1 USB TYPE-C','10','5','2 KG','1 YEAR','2020','INDIA',34,29999)
     #day(brand='LENOVO')
     add_laptops()
     pass

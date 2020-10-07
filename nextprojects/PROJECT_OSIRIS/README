@@ -86,6 +86,12 @@ A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE
     4.update
 
 
+2. update ---> updating specific details of products using productcode
+    
+    first takes a productcode of a product 
+    then display all parameters one by one to update or skip
 
 
+---> DELETE OPERATIONS
 
+1.display_p ---> delete a product completely from the database (not recoverable)
