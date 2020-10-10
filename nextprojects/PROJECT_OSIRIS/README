@@ -1,5 +1,4 @@
----> THIS IS A PYTHON-SQL DATABASE PROGRAM TO MAINTAIN 
-A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE
+--------> THIS IS A PYTHON-SQL DATABASE PROGRAM TO MAINTAIN A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE <--------
 
 
 ---> operator_manager() - AN OPERATOR WHICH PROCESSESS THE INPUT FROM THE MENU INTERFACE's PROMPT TO RUN THE DESIRE CORRESPONDING COMMAND
@@ -7,6 +6,16 @@ A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE
     1. replaces space by underscore 
     2. adds parentheses at the if not present 
     3. lowers the case 
+
+---> user login management
+
+1.credential_verifications()
+
+2.add_new_user(username,userpassword,userid=None)
+
+3.show_users()
+
+4.remove_users(username)
 
 
 ********************************** CRUD *************************************
@@ -86,7 +95,7 @@ A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE
     4.update
 
 
-2. update ---> updating specific details of products using productcode
+2. update() ---> updating specific details of products using productcode
     
     first takes a productcode of a product 
     then display all parameters one by one to update or skip
@@ -94,4 +103,7 @@ A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE
 
 ---> DELETE OPERATIONS
 
-1.display_p ---> delete a product completely from the database (not recoverable)
+1.delete_p() ---> delete a product completely from the database (not recoverable) using productcode
+
+
+--------------------------- customer CRUD ----------------------------------

@@ -7,14 +7,18 @@ import main
 # main menu
 def menu():
 
+    # identifying user
+    user=main.credential_verifications()
+
     # welcome message 
     main.welcome_message()
+
 
     #infinite loop
     while True:
 
         #prompt
-        prompt=input(f'\n{main.color(5)}OSIRIS_ELECTRONICS/USER_X ${main.color()} ')
+        prompt=input(f'\n{main.color(5)}OSIRIS_ELECTRONICS/{user} ${main.color()} ')
 
         #operations
         if prompt!="":

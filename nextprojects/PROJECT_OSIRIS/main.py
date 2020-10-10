@@ -68,6 +68,111 @@ def operator_manager(command):
 def verifications():
     pass
 
+# program to verify the existing user with his/her user password 
+def credential_verifications():
+
+    '''this function accepts registered username and password and verify them from the users table 
+    and then allow the access of database'''
+       
+
+    #username,userpassword=input("Enter username and password:").split()
+    username,userpassword="owner","@123"
+
+    cursor.execute('SELECT USERNAME,USERPASSWORD FROM USERS')
+
+    users=cursor.fetchall()                                                    # an instance containing all usernames and their userpasswords
+
+    for user in users:
+
+        if user["USERNAME"] == username:                                       # checking existence of the user
+            
+
+            if user["USERPASSWORD"]==userpassword:                             # verifying password of the user
+                  
+                print(f'\nlogin successfully as \033[1;33m{username}\033[1;37m \n')
+
+                return username
+                break
+
+            else:                                                              # if password not matched 
+
+                print('\nUser Password Does Not Match \n\nAccess Request denied!Try again')
+
+                exit()
+                
+    else:                                                                      # if user not exist
+            
+        print(f'\nuser {username} does not exits \n\nAccess Request denied!Try again')
+
+        exit()
+    
+
+#function to add users to allow the access of database
+def add_new_user(username,userpassword,userid=None):
+
+    try:
+
+        val=(userid,username,userpassword)
+        
+        cursor.execute('INSERT INTO USERS VALUES(%s,%s,%s)',val)
+
+        connector.commit()
+        
+        print(f'\nSuccessfully Added! New  USER-{color(6)}{username}{color()}\n')
+    except:
+
+        print('\nError! Unable to add new user\n')
+    
+
+#show registered users 
+def show_users():
+
+    try :
+        
+        cursor.execute("SELECT USERID,USERNAME FROM USERS")
+    
+        users=cursor.fetchall()
+        
+        print(f'\n{separator(51)} THERE ARE {color(6)}{len(users)}{color()} ARE AUTHORISHED USERS {separator(51)}')
+            
+        for user in users:
+
+            print()
+
+            print(f'''{color(6)}USERID {color()}:{user['USERID']},
+{color(6)}USERNAME {color()}:{user['USERNAME']}''')
+
+            print()
+        print(separator(137),'\n')
+            
+    except:
+
+        print('\nOOPs! Something went wrong\n')
+
+
+# to remove registered users
+def remove_user(username):
+
+    try :
+
+        if username=='owner':                                     # restricting to remove root(owner)
+
+            print('Root user can\'t be removed' )
+
+        else:
+
+            val=(username,)
+
+            cursor.execute('DELETE FROM USERS WHERE USERNAME=%s',val)
+
+            connector.commit()
+            
+            print(f'\nsuccessfully deleted! USERNAME - {color(6)}{username}{color()}\n')
+
+    except:
+
+        print(f'\n{color(6)}{username}{color()}! THIS USER DOES NOT EXIST\n')
+
 
 # to add new product 
 def add_laptop(brand,model_no,processor=None,graphic_card=None,os=None,ram=None,display=None,storage=None,camera=None,battery=None,keyboard=None,other_inputs=None,speakers=None,ports=None,wifi=None,bluetooth=None,weight=None,warranty=None,year_of_release=None,manufacture_in_country=None,stocks=None,price=None,productcode=None,others=None):
@@ -231,7 +336,7 @@ n ---> move to next\n\n''')
                     print(f'Successfully Updated! {parameter} of product{product_code_instance} -----> {p_instance}')
 
 
-# to delete a product completely from the database
+# to delete a product completely from the database(not recoverable`)
 
 def delete_p():
 
@@ -275,6 +380,17 @@ def delete_p():
 
         print('\nOops! Product Not Exist')
 
+
+# 
+
+def new_purchase():
+    pass
+
+def customer_details():
+    pass
+
+def all_purchases():
+    pass
    
 if __name__=='__main__':
     add_laptop('HP','THINKPAD','10TH GEN INTEL CORE i8','INTEL UHD','WINDOWS 10 HOME','LPDDR4 4GB','16 INCH FULL HD+ ','512 SSD','5MP WEBCAM','8 HOURS BACKUP','BACKLIGHT KEYS MAGIC KEYBOARD','MIC','DOLBY MODE','2 USB 1 USB TYPE-C','10','5','2 KG','1 YEAR','2020','INDIA',34,29999)
