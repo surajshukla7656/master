@@ -1,0 +1,20 @@
+
+new(fast=False) - to create add new chapter
+
+correction(chapter_name,level) - for correction in answers
+
+start() - to start practice session
+
+show_chapters() - to show all added chapters
+
+resume() - to resume recent journey
+
+current() - to show current journey
+
+record_manager(chapter_number,chapter_name,total_questions_level_1) - to add record of new chapter
+
+progress_manager(chapter_number,current_question,previous_report) - to manage progress
+
+progress(chapter_number) - to show progress
+
+master_key() - to handle anonymous operations

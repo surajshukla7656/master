@@ -107,3 +107,18 @@
 
 
 --------------------------- customer CRUD ----------------------------------
+
+1.new purchase (still in progress)
+
+    PARAMETERS:
+
+        1.purchaseid
+        2.customername
+        3.customeremailid
+        4.products
+        5.amountpayed
+        6.amountleft
+
+2.all purchases - it display all the purchases made 
+
+------------------------------------- first version completed ---------------------------------------------

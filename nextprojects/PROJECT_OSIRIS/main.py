@@ -30,6 +30,7 @@ def welcome_message():
 TO DATABASE MENU INTERFACE 
 DEVELOPED BY SURAJ SHUKLA''')
 
+
 # to highlight data
 def color(col=7):
 
@@ -40,6 +41,7 @@ def color(col=7):
 
 # to highlight data
 def separator(num,symbol="*"):
+
     return symbol*num
 
 
@@ -59,13 +61,13 @@ def operator_manager(command):
     if "(" and ")" not in prompt:
         prompt+="()"
     
-    
     command=prompt.lower()
     return command
 
 
 # to verify and allow access to the authorised user
 def verifications():
+    
     pass
 
 # program to verify the existing user with his/her user password 
@@ -75,8 +77,8 @@ def credential_verifications():
     and then allow the access of database'''
        
 
-    #username,userpassword=input("Enter username and password:").split()
-    username,userpassword="owner","@123"
+    username,userpassword=input("Enter username and password:").split()
+    #username,userpassword="owner","@123"
 
     cursor.execute('SELECT USERNAME,USERPASSWORD FROM USERS')
 
@@ -381,16 +383,70 @@ def delete_p():
         print('\nOops! Product Not Exist')
 
 
-# 
+# adding a new purchase made 
 
 def new_purchase():
-    pass
+    
+    purchase_parameter_dict={
+    'CUSTOMERNAME':None,
+    'CUSTOMEREMAILID':None,
+    'PRODUCTS':None,
+    'AMOUNTPAYED':None,
+    'AMOUNTLEFT':None
+    }
 
-def customer_details():
-    pass
+    for parameter in purchase_parameter_dict:
 
+        detail=input(f'{color(4)}Enter {parameter}{color()}:')
+
+        if parameter=='AMOUNTPAYED' or parameter=='AMOUNTLEFT':
+
+            detail=int(detail)
+
+        purchase_parameter_dict[parameter]=detail
+    
+    parameters=purchase_parameter_dict.values()
+    p
+    parameters=tuple(parameters)
+    print(parameters)
+
+    
+    query='INSERT INTO PURCHASES VALUES(null,%s,%s,%s,%s,%s)'
+
+    #query=f'INSERT INTO PURCHASES VALUES(null,\'{parameters[0]}\',\'{parameters[1]}\',\'{parameters[2]}\',\'{parameters[3]}\',\'{parameters[4]}\')'
+
+    cursor.execute(query,parameters)
+
+    connector.commit()
+
+    print(f'Successfully Recorded New Purchase,PurchaseID-')
+
+
+#showing all purchases made
 def all_purchases():
-    pass
+    
+    query='SELECT * FROM PURCHASES'
+
+    cursor.execute(query)
+
+    purchases=list(cursor.fetchall())
+
+    for purchase in purchases:                                                                                # contain single purchase detail one by one
+
+        print('\n\n')  
+
+        for x,y in purchase.items():                                                                          # extracting information from the purchase instance one by one
+
+            print(f'''{color(6)}{x}:{color()}{y}''')
+
+
+def help():
+
+    f=open('/home/surajshukla7656/Documents/nextpython/nextprojects/PROJECT_OSIRIS/README','r')
+
+    for line in f.readlines():
+
+        print(line,end='')
    
 if __name__=='__main__':
     add_laptop('HP','THINKPAD','10TH GEN INTEL CORE i8','INTEL UHD','WINDOWS 10 HOME','LPDDR4 4GB','16 INCH FULL HD+ ','512 SSD','5MP WEBCAM','8 HOURS BACKUP','BACKLIGHT KEYS MAGIC KEYBOARD','MIC','DOLBY MODE','2 USB 1 USB TYPE-C','10','5','2 KG','1 YEAR','2020','INDIA',34,29999)
