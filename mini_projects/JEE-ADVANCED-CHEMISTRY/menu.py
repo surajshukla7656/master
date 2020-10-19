@@ -14,25 +14,32 @@ def menu():
     #infinite loop
     while True:
 
-        #prompt
-        prompt=input(f'{main.color(5)}JEE-ADVANCED-ORGRANIC-CHEMISTRY${main.color()} ')
+        try:
+            #prompt
+            prompt=input(f'{main.color(5)}JEE-ADVANCED-ORGRANIC-CHEMISTRY${main.color()} ')
 
-        #operations
-        if prompt!="":
+            #operations
+            if prompt!="":
 
-            prompt=main.operator_manager(prompt)
-            
-            # to exit
-            if prompt=='exit()':
-
-                print('bye')
+                prompt=main.operator_manager(prompt)
                 
-                break
+                # to exit
+                if prompt=='exit()' or prompt=='e()':
+
+                    print('bye')
+                    
+                    break
+                
+                # performing operations
+                else:
+
+                    eval(f'main.{prompt}')
+
+        except:
+
+            print('Invalid Input!\n')
+            continue
+
+
             
-            # performing operations
-            else:
-
-                eval(f'main.{prompt}')
-
-        
 menu()

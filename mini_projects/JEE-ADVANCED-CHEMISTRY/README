@@ -1,20 +1,33 @@
+--->>> python program to manage practice session of jee advanced chemistry
 
-new(fast=False) - to create add new chapter
 
-correction(chapter_name,level) - for correction in answers
+--->>> functions available
 
-start() - to start practice session
+1.new() - to add new chapter
 
-show_chapters() - to show all added chapters
+2.correction(chapter_name,level) - to make random corrections in answers
 
-resume() - to resume recent journey
+3.start(chapter_number=None,chapter_name=None,level=None,start_from_question_number=None):- to start practice session
+    s - skipped
+    p - previous
+    pn -previous note
 
-current() - to show current journey
+4.left(chapter_number=None)
 
-record_manager(chapter_number,chapter_name,total_questions_level_1) - to add record of new chapter
+5.show_chapters() - to show all added chapters
 
-progress_manager(chapter_number,current_question,previous_report) - to manage progress
+6.notes(chapter_number,level=1) - to show notes of any chapter
 
-progress(chapter_number) - to show progress
+7.resume() - to resume recent journey
 
-master_key() - to handle anonymous operations
+8.current() - to show current journey
+
+9.record_manager(chapter_number,chapter_name,total_questions_level_1) - to add record of new chapter in progress_report
+
+10.progress_manager(chapter_number,current_question,previous_report) - to manage progresssc
+
+11.progress(chapter_number) - to show progress
+
+12.master_key() - to handle anonymous operations
+
+13.help() - to display this page on command prompt
