@@ -7,7 +7,7 @@
     2. adds parentheses at the if not present 
     3. lowers the case 
 
----> user login management
+---> USER LOGIN MANAGEMENT 
 
 1.credential_verifications()
 
@@ -85,6 +85,8 @@
 
 2. display_all()
 
+3.stocks(product='all') - to display stocks of latops 
+
 ---> UPDATE OPERATIONS
 
 1. update_s(brand,model_no,parameter,update) - to update latop with single parameter
@@ -108,17 +110,80 @@
 
 --------------------------- customer CRUD ----------------------------------
 
-1.new purchase (still in progress)
+1.new purchase() 
 
     PARAMETERS:
 
-        1.purchaseid
+        1.purchaseid-Default
         2.customername
         3.customeremailid
-        4.products
-        5.amountpayed
-        6.amountleft
+        4.productcode - extract  product ,selling_price from LAPTOP
+        5.discount(in %)
+        6.GST(IN %)
 
-2.all purchases - it display all the purchases made 
+2.new_purchases(customername=None,customeremail=None,customerphone=None)
 
-------------------------------------- first version completed ---------------------------------------------
+3.all purchases() - it display all the purchases made 
+
+--------------------------- DATABASE INFORMATION -----------------------------
+
+LAPTOP :
+
+    +------------------------+-------------+------+-----+---------+----------------+
+    | Field                  | Type        | Null | Key | Default | Extra          |
+    +------------------------+-------------+------+-----+---------+----------------+
+    | PRODUCTCODE            | int         | NO   | PRI | NULL    | auto_increment |
+    | BRAND                  | varchar(40) | NO   |     | NULL    |                |
+    | MODEL_NO               | varchar(50) | NO   |     | NULL    |                |
+    | PROCESSOR              | varchar(50) | YES  |     | NULL    |                |
+    | GRAPHIC_CARD           | varchar(50) | YES  |     | NULL    |                |
+    | OS                     | varchar(40) | YES  |     | NULL    |                |
+    | RAM                    | varchar(50) | YES  |     | NULL    |                |
+    | DISPLAY                | varchar(40) | YES  |     | NULL    |                |
+    | STORAGE                | varchar(50) | YES  |     | NULL    |                |
+    | CAMERA                 | varchar(50) | YES  |     | NULL    |                |
+    | BATTERY                | varchar(50) | YES  |     | NULL    |                |
+    | KEYBOARD               | varchar(50) | YES  |     | NULL    |                |
+    | OTHER_INPUTS           | varchar(50) | YES  |     | NULL    |                |
+    | SPEAKERS               | varchar(40) | YES  |     | NULL    |                |
+    | PORTS                  | varchar(50) | YES  |     | NULL    |                |
+    | WIFI                   | varchar(40) | YES  |     | NULL    |                |
+    | BLUETOOTH              | varchar(40) | YES  |     | NULL    |                |
+    | WEIGHT                 | varchar(10) | YES  |     | NULL    |                |
+    | WARRANTY               | varchar(20) | YES  |     | NULL    |                |
+    | YEAR_OF_RELEASE        | varchar(4)  | YES  |     | NULL    |                |
+    | MANUFACTURE_IN_COUNTRY | varchar(20) | YES  |     | NULL    |                |
+    | STOCKS                 | int         | YES  |     | 0       |                |
+    | PRICE                  | int         | YES  |     | 0.00    |                |
+    | OTHERS                 | varchar(60) | YES  |     | NULL    |                |
+    +------------------------+-------------+------+-----+---------+----------------+
+
+
+USERS:
+
+    +--------------+-------------+------+-----+---------+----------------+
+    | Field        | Type        | Null | Key | Default | Extra          |
+    +--------------+-------------+------+-----+---------+----------------+
+    | USERID       | int         | NO   | PRI | NULL    | auto_increment |
+    | USERNAME     | varchar(50) | NO   |     | NULL    |                |
+    | USERPASSWORD | varchar(50) | NO   |     | NULL    |                |
+    +--------------+-------------+------+-----+---------+----------------+
+
+PURCHASES:
+
+    +---------------------+--------------+------+-----+---------+----------------+
+    | Field               | Type         | Null | Key | Default | Extra          |
+    +---------------------+--------------+------+-----+---------+----------------+
+    | PURCHASEID          | int          | NO   | PRI | NULL    | auto_increment |
+    | CUSTOMERNAME        | varchar(50)  | YES  |     | NULL    |                |
+    | CUSTOMEREMAILID     | varchar(50)  | YES  |     | NULL    |                |
+    | PHONE_NO            | int          | YES  |     | NULL    |                |
+    | PRODUCTCODE         | int          | YES  | MUL | NULL    |                |
+    | PRODUCT             | varchar(50)  | YES  |     | NULL    |                |
+    | SELLING_PRICE       | decimal(9,2) | YES  |     | NULL    |                |
+    | DISCOUNT_IN_PERCENT | decimal(5,2) | YES  |     | 0.00    |                |
+    | GST_IN_PERCENT      | decimal(5,2) | YES  |     | 0.00    |                |
+    | NET_AMOUNT_PAID     | decimal(9,2) | YES  |     | NULL    |                |
+    | DATE_OF_PURCHASE    | date         | NO   |     | NULL    |                |
+    | TIME_OF_PURCHASE    | time         | NO   |     | NULL    |                |
+    +----------------------------------------------------------------------------+

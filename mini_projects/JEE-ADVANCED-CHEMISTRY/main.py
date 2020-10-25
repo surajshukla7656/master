@@ -1,5 +1,6 @@
 # main body
 
+import time
 import mysql.connector
 
 connector=mysql.connector.connect(
@@ -255,6 +256,9 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
 
     answer_key=cursor.fetchall()
 
+    # start time
+    t_start=time.time()
+
     # to give answer
     while True:
 
@@ -286,18 +290,37 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
             start_from_question_number-=1  
 
             continue
+
+        # to add note during skipping
+        elif your_ans=='sn':
+
+            # skipping
+            cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'SKIPPED\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
+
+            connector.commit()
+
+            print(f'--------->>> {color(4)}SKIPPED{color()}')
+
+            # note
+            notes=input(f'\n--->{color(6)} Enter Notes : {color()}')
+
+            notes=notes.lower()
+
+            cursor.execute(f'UPDATE {chapter_name} SET NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
+
+            print(f'--------->>> {color(4)}ADDED{color()}')
         
         # to enter note in previous question
         elif your_ans=='pn':
 
             start_from_question_number-=1  
 
-            # other information
-            notes=input(f'\n--->{color(6)} Enter Notes : {color(6)}')
+            # note
+            notes=input(f'\n--->{color(6)} Enter Notes : {color()}')
 
             notes=notes.lower()
 
-            cursor.execute(f'UPDATE {chapter_name} SET OTHERS_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
+            cursor.execute(f'UPDATE {chapter_name} SET NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
 
             print(f'--------->>> {color(4)}ADDED{color()}')
 
@@ -327,7 +350,7 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
                 print(F'\n--->{color(4)} Correct Answer is - {color()}{answer_key[start_from_question_number-1][1]}')
                 
                 # other information{i[0]}
-                notes=input(f'\n--->{color(6)} Enter Note:{color(6)}')
+                notes=input(f'\n--->{color(4)} Enter Note:{color()}')
 
                 notes=notes.lower()
 
@@ -352,6 +375,11 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
 
         start_from_question_number+=1  
 
+    # end time
+    t_end=time.time()
+    time_taken=round(((t_end-t_start)/60),2)
+    
+
     # to update current record
 
     cursor.execute('DELETE FROM CURRENT')
@@ -362,7 +390,7 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
 
     # to update progress report 
     
-    progress_report_manager(chapter_number,start_from_question_number,previous_report)
+    progress_report_manager(chapter_number,start_from_question_number,previous_report,time_taken)
 
 
 # to start the practice session
@@ -402,6 +430,11 @@ def left(chapter_number=None):
     answer_key=cursor.fetchall()
     print(f'TOTAL QUESTIONS LEFT : {len(answer_key)}')
     count=0
+
+    
+    # time start
+    t_start=time.time()
+
     # to give answer
     while True:
 
@@ -433,13 +466,34 @@ def left(chapter_number=None):
             count-=1  
 
             continue
-        
+
+        # add note during skipping
+
+        elif your_ans=='sn':
+
+            # skipping
+            cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'SKIPPED\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+            connector.commit()
+
+            print(f'--------->>> {color(4)}SKIPPED{color()}')
+            
+
+            # adding note
+            notes=input(f'\n--->{color(6)} Enter Notes : {color()}')
+
+            notes=notes.lower()
+
+            cursor.execute(f'UPDATE {chapter_name} SET NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+            print(f'--------->>> {color(4)}ADDED{color()}')
+
         # to enter note in previous question
         elif your_ans=='pn':
 
             count-=1  
 
-            # other information
+            # note
             notes=input(f'\n--->{color(6)} Enter Notes : {color()}')
 
             notes=notes.lower()
@@ -474,7 +528,7 @@ def left(chapter_number=None):
                 print(F'\n--->{color(4)} Correct Answer is - {color()}{answer_key[count][1]}')
                 
                 # other information{i[0]}
-                notes=input(f'\n--->{color(6)} Enter Note:{color(6)}')
+                notes=input(f'\n--->{color(4)} Enter Note:{color()}')
 
                 notes=notes.lower()
 
@@ -499,10 +553,16 @@ def left(chapter_number=None):
 
         count+=1  
 
+    # time end
+    t_end=time.time()
 
+    # end time
+    t_end=time.time()
+    time_taken=round(((t_end-t_start)/60),2)
+    
     # to update progress report 
     
-    progress_report_manager(chapter_number,previous_report[0][8],previous_report)
+    progress_report_manager(chapter_number,previous_report[0][8],previous_report,time_taken)
 
 
 
@@ -589,7 +649,7 @@ def record_manager(chapter_number,chapter_name,total_questions_level_1):
 
 
 # progress manager
-def progress_report_manager(chapter_number,current_question,previous_report):
+def progress_report_manager(chapter_number,current_question,previous_report,time_taken):
     
     cursor.execute(f'SELECT CHAPTERNAME FROM PROGRESS_REPORT WHERE CHAPTERNUMBER={chapter_number}')
 
@@ -663,11 +723,12 @@ def progress_report_manager(chapter_number,current_question,previous_report):
         print(f'\n{color(2)}Progress Report Of Chapter Number {color()}: {chapter_number}, Chapter Name : {chapter_name} Updated!\n')
 
         # display today report 
-        print(f'''{color(3)}--------------------------------SESSION REPORT--------------------------------
-        
-    {color(4)}CORRECT ANSWERS : {color()}{correct_questions-previous_report[0][5]},
-    {color(4)}WRONG OR SKIPPED ANSWERS: {color()}{wrong_and_skipped_questions-previous_report[0][6]},
-    {color(4)}TOTAL QUESTIONS ATTEMPTED : {color()}{previous_report[0][4]-non_attempted_questions}\n\n\n''')
+        print(f'''{color(3)}----------SESSION REPORT----------
+
+{color(4)}TIME TAKEN : {color()}{time_taken} minutes,
+{color(4)}CORRECT ANSWERS : {color()}{correct_questions-previous_report[0][5]},
+{color(4)}WRONG OR SKIPPED ANSWERS: {color()}{wrong_and_skipped_questions-previous_report[0][6]},
+{color(4)}TOTAL QUESTIONS ATTEMPTED : {color()}{previous_report[0][4]-non_attempted_questions}\n\n\n''')
 
         progress(chapter_number)
 
@@ -686,8 +747,8 @@ def progress(chapter_number=None):
         for progress_report in progress_reports:
 
             
-            print(f'''{color(3)}--------------------------------CHAPTER-{progress_report[0]}----------------------------------
-            
+            print(f'''{color(3)}-----CHAPTER-{progress_report[0]}-----
+
 {color(4)}CHAPTER NAME : {color()}{progress_report[1]},
 {color(4)}TOTAL QUESTIONS : {color()}{progress_report[2]},
 {color(4)}ATTEMPTED QUESTIONS : {color()}{progress_report[3]},

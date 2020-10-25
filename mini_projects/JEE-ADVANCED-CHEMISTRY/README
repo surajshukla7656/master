@@ -8,9 +8,11 @@
 2.correction(chapter_name,level) - to make random corrections in answers
 
 3.start(chapter_number=None,chapter_name=None,level=None,start_from_question_number=None):- to start practice session
-    s - skipped
-    p - previous
-    pn -previous note
+
+    functions_domains :
+        s - skipped
+        p - previous
+        pn -previous note
 
 4.left(chapter_number=None)
 

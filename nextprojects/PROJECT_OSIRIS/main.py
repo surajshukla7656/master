@@ -1,5 +1,7 @@
 ''''this program provides different functions to perform 
 CRUD in a database'''
+# imported modules
+import datetime
 
 import mysql.connector
 
@@ -176,11 +178,23 @@ def remove_user(username):
         print(f'\n{color(6)}{username}{color()}! THIS USER DOES NOT EXIST\n')
 
 
+
+'''----------------------------------------------------- CREATE ----------------------------------------------------'''
+
 # to add new product 
 def add_laptop(brand,model_no,processor=None,graphic_card=None,os=None,ram=None,display=None,storage=None,camera=None,battery=None,keyboard=None,other_inputs=None,speakers=None,ports=None,wifi=None,bluetooth=None,weight=None,warranty=None,year_of_release=None,manufacture_in_country=None,stocks=None,price=None,productcode=None,others=None):
     
     try:
-        parameters=(productcode,brand,model_no,processor,graphic_card,os,ram,display,storage,camera,battery,keyboard,other_inputs,speakers,ports,wifi,bluetooth,weight,warranty,year_of_release,manufacture_in_country,stocks,price,others)
+
+        # converting all parameters into upper case
+        parameters=[productcode,brand,model_no,processor,graphic_card,os,ram,display,storage,camera,battery,keyboard,other_inputs,speakers,ports,wifi,bluetooth,weight,warranty,year_of_release,manufacture_in_country,stocks,price,others]
+
+        for val in range(len(parameters)):
+
+            parameters[val]=parameters[val].upper()
+
+        parameters=tuple(parameters)
+
 
         query=('INSERT INTO LAPTOP VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)')
 
@@ -203,23 +217,31 @@ def add_laptops():
         for detail in detail_dict:
 
             var=input(f'\n{color(4)}Enter {detail}:{color()}')
+
+            var=var.upper()                                                                                  # converting into upper case
             
-            if var=='' and detail=='brand' or var=='' and detail=='model_no' or var=='skip' or var=='stop':  # to skip parameters,break inner loop
+            if var=='' and detail=='brand' or var=='' and detail=='model_no' or var=='SKIP' or var=='STOP':  # to skip parameters,break inner loop
+               
                 break
 
             elif var=='':                                                                                    # to keep the parameter None if null 
+                
                 var=None
         
             detail_dict[detail]=var                                                                          # adding parameter one by one
         
-        if var=='' and detail=='brand' or var=='' and detail=='model_no' or var=='stop':                     #to stop entering new product, break outer loop
+        if var=='' and detail=='brand' or var=='' and detail=='model_no' or var=='STOP':                     #to stop entering new product, break outer loop
+            
             break
 
         
         # adding new product one by one
         add_laptop(detail_dict['brand'],detail_dict['model_no'],detail_dict['processor'],detail_dict['graphic_card'],detail_dict['os'],detail_dict['ram'],detail_dict['display'],detail_dict['storage'],detail_dict['camera'],detail_dict['battery'],detail_dict['keyboard'],detail_dict['other_inputs'],detail_dict['speakers'],detail_dict['ports'],detail_dict['wifi'],detail_dict['bluetooth'],detail_dict['weight'],detail_dict['warranty'],detail_dict['year_of_release'],detail_dict['manufactured_in_country'],detail_dict['stocks'],detail_dict['price'],detail_dict['others'],detail_dict['productcode'])
 
-    
+
+
+
+'''----------------------------------------------------- RETRIEVE ----------------------------------------------------'''
 # to display  laptops
 def display(brand=None,model_no=None,processor=None,graphic_card=None,os=None,ram=None,display=None,storage=None,camera=None,battery=None,keyboard=None,other_inputs=None,speakers=None,ports=None,wifi=None,bluetooth=None,weight=None,warranty=None,year_of_release=None,manufacture_in_country=None,stocks=None,price=None,others=None,productcode=None):
 
@@ -243,7 +265,7 @@ def display(brand=None,model_no=None,processor=None,graphic_card=None,os=None,ra
 # to display all data of all  laptops
 def display_all():
 
-    query='SELECT * FROM LAPTOP '
+    query='SELECT * FROM LAPTOP'
 
     cursor.execute(query)
 
@@ -277,7 +299,30 @@ def display_products():
 
         print('\n')  
 
+def stocks(productcode='all'):
 
+    if productcode=='all' or productcode=='ALL':
+
+        query='SELECT PRODUCTCODE,BRAND,MODEL_NO,STOCKS FROM LAPTOP'
+
+    else:
+    
+        query=f'SELECT PRODUCTCODE,BRAND,MODEL_NO,STOCKS FROM LAPTOP WHERE PRODUCTCODE={productcode}'
+
+    cursor.execute(query)
+
+    laptop_stocks=cursor.fetchall()
+
+    for stocks in laptop_stocks:                                                                           # contain single laptop detail one by one
+
+        print('\n\n')  
+
+        for x,y in stocks.items():                                                                          # extracting information from the laptop instance one by one
+
+            print(f'''{color(6)}{x}:{color()}{y}''')
+
+
+'''----------------------------------------------------- UPDATE ----------------------------------------------------'''
 
 # to update  a single parameter 
 
@@ -337,6 +382,23 @@ n ---> move to next\n\n''')
 
                     print(f'Successfully Updated! {parameter} of product{product_code_instance} -----> {p_instance}')
 
+# updating stocks
+
+def update_stocks(productcode,new_stocks):
+
+    query='UPDATE LAPTOP SET STOCKS=%s WHERE PRODUCTCODE=%s'
+    
+    p_meter=(new_stocks,productcode)
+
+    cursor.execute(query,p_meter)
+
+    connector.commit()
+
+    print('Updated Successfully!')
+
+
+'''----------------------------------------------------- DELETE ----------------------------------------------------'''
+
 
 # to delete a product completely from the database(not recoverable`)
 
@@ -383,46 +445,190 @@ def delete_p():
         print('\nOops! Product Not Exist')
 
 
+
+'''----------------------------------------------------- CUSTOMER ----------------------------------------------------'''
+
 # adding a new purchase made 
 
-def new_purchase():
-    
-    purchase_parameter_dict={
-    'CUSTOMERNAME':None,
-    'CUSTOMEREMAILID':None,
-    'PRODUCTS':None,
-    'AMOUNTPAYED':None,
-    'AMOUNTLEFT':None
-    }
+def new_purchase(customername=None,customeremail=None,customerphone=None):
+     
+    if customername==None:
 
-    for parameter in purchase_parameter_dict:
+        fields=['customer name','customer email ID','phone no.','product code','discount(in %)','GST(IN %)']
 
-        detail=input(f'{color(4)}Enter {parameter}{color()}:')
+        parameters=list()
 
-        if parameter=='AMOUNTPAYED' or parameter=='AMOUNTLEFT':
+    else:
+        fields=['product code','discount(in %)','GST(IN %)']
 
-            detail=int(detail)
+        parameters=list([customername,customeremail,customerphone])
 
-        purchase_parameter_dict[parameter]=detail
-    
-    parameters=purchase_parameter_dict.values()
-    p
+    i=0
+
+    while i<len(fields):
+
+        detail=input(f'\n{color(4)}Enter {fields[i]}{color()} : ')
+
+        if detail=='p':
+
+            if i>0:
+
+                i-=1
+
+                parameters.pop()
+
+                continue
+
+            else:
+                
+                print(f'{color(1)}\nWarning! i is less than 0{color()}')
+
+        elif fields[i]=='product code':
+
+            if detail.isdigit()==True:
+            
+                cursor.execute(f'SELECT BRAND,MODEL_NO,STOCKS,PRICE FROM LAPTOP WHERE PRODUCTCODE={detail}')
+
+                details=cursor.fetchall()
+
+                if len(details)!=0:
+
+                    product=details[0]['BRAND']+'-'+details[0]['MODEL_NO']
+
+                    print(f'-------->>>{color(4)} Product name {color()}: {product}')
+
+                    parameters.append(detail)
+
+                    parameters.append(product)
+
+                    parameters.append(float(details[0]['PRICE']))
+
+                    i+=1
+
+                else:
+                    
+                    print('\n-------->>>Product Not Found(Only five digits code)')
+
+            else:
+
+                print('\n-------->>>Please! Enter Product code(Only in int(5))')
+
+            continue
+
+        elif fields[i]=='customer name' and detail=='':
+
+            print('\n-------->>>Customer Name Can\'t Be Empty')
+
+            continue
+
+        elif fields[i]=='customer email ID' and 'mail.com' not in detail and '@' not in detail :
+
+            print('\n-------->>>Invalid Email!')
+
+            continue
+
+        elif fields[i]=='discount(in %)':
+
+            if detail=='':
+
+                detail=int()
+
+            discount_price=float(details[0]['PRICE'])*(float(detail) * 0.01)
+
+            amount_after_applying_discount=int(details[0]['PRICE'])-discount_price
+
+        elif fields[i]=='GST(IN %)':
+            
+            if detail=='':
+
+                detail=int()
+                
+            GST_price=amount_after_applying_discount*(float(detail) * 0.01)
+
+            amount_after_applying_gst=amount_after_applying_discount+GST_price
+
+        elif fields[i]=='phone no.' :
+
+            if detail=='':
+
+                parameters.append(int())
+
+            elif detail.isdigit()==False:
+
+                print('\n-------->>>Invalid Input')
+                
+                continue
+
+            elif len(detail)!=10:
+
+                print('\n-------->>>Only ten digit numbers are allowed')
+
+                continue
+
+            else:
+
+                parameters.append(None)
+
+            i+=1
+
+            continue
+        
+        # adding
+        parameters.append(detail)
+
+        i+=1
+
+    parameters.append(amount_after_applying_gst)
+
+    parameters.append(datetime.datetime.today())
+
+    parameters.append(datetime.datetime.today())
+
     parameters=tuple(parameters)
-    print(parameters)
 
-    
-    query='INSERT INTO PURCHASES VALUES(null,%s,%s,%s,%s,%s)'
+    query='INSERT INTO PURCHASES VALUES(null,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
 
-    #query=f'INSERT INTO PURCHASES VALUES(null,\'{parameters[0]}\',\'{parameters[1]}\',\'{parameters[2]}\',\'{parameters[3]}\',\'{parameters[4]}\')'
+    # #query=f'INSERT INTO PURCHASES VALUES(null,\'{parameters[0]}\',\'{parameters[1]}\',\'{parameters[2]}\',\'{parameters[3]}\',\'{parameters[4]}\')'
 
     cursor.execute(query,parameters)
 
     connector.commit()
 
-    print(f'Successfully Recorded New Purchase,PurchaseID-')
+    cursor.execute('SELECT PURCHASEID,NET_AMOUNT_PAID,DATE_OF_PURCHASE,TIME_OF_PURCHASE FROM PURCHASES ORDER BY PURCHASEID DESC LIMIT 1 ')
+
+    purchasedetail=cursor.fetchone()
+
+    print(f'''\n------->>>Successfully Added!
+------->>>{color(4)}PurchaseID{color()} : {purchasedetail['PURCHASEID']}, {color(4)}NET AMOUNT {color()}:{purchasedetail['NET_AMOUNT_PAID']}, {color(4)}TIME{color()} : {str(purchasedetail['DATE_OF_PURCHASE'])} {str(purchasedetail['TIME_OF_PURCHASE'])}''')
+
+    return parameters[0:4]
+
+# to add many purchases
+def new_purchases(customername=None,customeremail=None,customerphone=None):
+
+    while True:
+
+        parameters=new_purchase(customername=customername,customeremail=customeremail,customerphone=customerphone)
+
+        decision=input(f'\n{color(4)}Enter more transaction {color()}: ')
+
+        if decision=='y':
+
+            customername=parameters[0]
+            customeremail=parameters[1]
+            customerphone=parameters[2]
+
+            continue
+
+        else:
+
+            print()
+
+            break
 
 
-#showing all purchases made
+
+# showing all purchases made
 def all_purchases():
     
     query='SELECT * FROM PURCHASES'
@@ -440,6 +646,9 @@ def all_purchases():
             print(f'''{color(6)}{x}:{color()}{y}''')
 
 
+
+'''----------------------------------------------------- HELP ----------------------------------------------------'''
+
 def help():
 
     f=open('/home/surajshukla7656/Documents/nextpython/nextprojects/PROJECT_OSIRIS/README','r')
@@ -448,8 +657,12 @@ def help():
 
         print(line,end='')
    
+  
 if __name__=='__main__':
-    add_laptop('HP','THINKPAD','10TH GEN INTEL CORE i8','INTEL UHD','WINDOWS 10 HOME','LPDDR4 4GB','16 INCH FULL HD+ ','512 SSD','5MP WEBCAM','8 HOURS BACKUP','BACKLIGHT KEYS MAGIC KEYBOARD','MIC','DOLBY MODE','2 USB 1 USB TYPE-C','10','5','2 KG','1 YEAR','2020','INDIA',34,29999)
-    #day(brand='LENOVO')
-    add_laptops()
-    pass
+   
+   #stocks(10008)
+
+   #update_stocks(10008,23)
+
+   new_purchases()
+   pass
