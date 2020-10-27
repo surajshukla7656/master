@@ -4,7 +4,7 @@ import main
 # main menu
 def menu():
 
-    print(main.color(),'*'*50,f'{main.color(4)}YOUR PRACTICE SESSION STARTED{main.color()}','*'*50)
+    print(main.color(),'*'*5,f'{main.color(4)}YOUR PRACTICE SESSION STARTED{main.color()}','*'*5)
 
     
     # welcome message 
@@ -37,8 +37,9 @@ def menu():
 
         except:
 
-            print('Invalid Input!\n')
-            continue
+           print('Invalid Input!\n')
+           
+           continue
 
 
             

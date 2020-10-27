@@ -18,7 +18,7 @@ try:
     cursor=connector.cursor(dictionary=True)
 
     print()
-    print(F'\033[1;32m{"*"*50} CONNECTION ESTABLISHED SUCCESSFULLY! {"*"*50}\033[1;37m' )
+    print(F'\033[1;32m{"*"*10} CONNECTION ESTABLISHED SUCCESSFULLY! {"*"*10}\033[1;37m' )
     
 except:
     print('UNABLE to connect! TRY AGAIN')

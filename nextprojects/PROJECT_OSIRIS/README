@@ -1,10 +1,10 @@
 --------> THIS IS A PYTHON-SQL DATABASE PROGRAM TO MAINTAIN A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE <--------
 
 
----> operator_manager() - AN OPERATOR WHICH PROCESSESS THE INPUT FROM THE MENU INTERFACE's PROMPT TO RUN THE DESIRE CORRESPONDING COMMAND
+---> operator_manager() - processes the input command (of the menu prompt)
     
     1. replaces space by underscore 
-    2. adds parentheses at the if not present 
+    2. adds parentheses at the end if not present 
     3. lowers the case 
 
 ---> USER LOGIN MANAGEMENT 
@@ -85,7 +85,7 @@
 
 2. display_all()
 
-3.stocks(product='all') - to display stocks of latops 
+3.stocks(product='all') - to display stocks of laptops 
 
 ---> UPDATE OPERATIONS
 
