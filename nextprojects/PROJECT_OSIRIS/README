@@ -85,7 +85,9 @@
 
 2. display_all()
 
-3.stocks(product='all') - to display stocks of laptops 
+3. display_products() - to display names of product only
+
+4. stocks(product='all') - to display stocks of laptops 
 
 ---> UPDATE OPERATIONS
 

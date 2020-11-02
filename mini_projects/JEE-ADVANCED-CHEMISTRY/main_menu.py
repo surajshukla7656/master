@@ -14,7 +14,7 @@ def menu():
     #infinite loop
     while True:
 
-        # try:
+        try:
             #prompt
             prompt=input(f'{main.color(5)}JEE-ADVANCED-ORGRANIC-CHEMISTRY${main.color()} ')
 
@@ -35,11 +35,11 @@ def menu():
 
                     eval(f'main.{prompt}')
 
-        # except:
+        except:
 
-        #     print('Invalid Input!\n')
+            print('Invalid Input!\n')
            
-        #     continue
+            continue
 
 
             

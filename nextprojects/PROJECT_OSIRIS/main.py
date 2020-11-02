@@ -52,17 +52,29 @@ def operator_manager(command):
 
     prompt=""
 
-    # replacing space by underskore
-    for char in command:
-        if char==" ":
-            prompt+="_"
-        else:
-            prompt+=char
+    # modification
+
+    if command=='del':
+
+        prompt='delete_products()'
+
+    elif command[:4]=='del-':
+        
+        prompt=f'delete_products({command[4:]})'
+
+    else:
+        # replacing space by underskore
+        for char in command:
+            if char==" ":
+                prompt+="_"
+            else:
+                prompt+=char
+
 
     # add parentheses at the end if absent
     if "(" and ")" not in prompt:
         prompt+="()"
-    
+
     command=prompt.lower()
     return command
 
@@ -402,47 +414,73 @@ def update_stocks(productcode,new_stocks):
 
 # to delete a product completely from the database(not recoverable`)
 
-def delete_p():
+def delete_products(productcode=None,many=False):
 
-    productcode=input(f'\n{color(4)}Enter productcode:{color()}')                         # input of identity of product
+    if productcode==None:
 
-    p_code=(productcode,)                                                                 # converting productcode to use it in cursor
+        many=True
 
-    query='SELECT BRAND,MODEL_NO FROM LAPTOP WHERE PRODUCTCODE=%s'
+    while True : 
 
-    cursor.execute(query,p_code)
+        if productcode=='show products':
 
-    extra_details=cursor.fetchall()
+            display_products()
 
-    if len(extra_details)!=0:                                                              # if product exist
+        elif productcode!=None:
+    
+            p_code=(productcode,)                                                                 # converting productcode to use it in cursor
 
-        extra_details=list(extra_details[0].values())                                      # retrieving useful data 
-
-        print(f'\nWARNING! NOT RECOVERABLE AFTER DELETION\n')
-        
-        confirm=input(f'{color(4)}Are You Sure You Want To  Delete(Y/n){color()} \'{productcode}-{extra_details[0]}-{extra_details[1]}\' {color(4)}:{color()}')
-
-        if confirm=='y' or confirm=='yes':
-
-            query='DELETE FROM LAPTOP WHERE PRODUCTCODE=%s'
+            query='SELECT BRAND,MODEL_NO FROM LAPTOP WHERE PRODUCTCODE=%s'
 
             cursor.execute(query,p_code)
 
-            connector.commit()
+            extra_details=cursor.fetchall()
 
-            print(f'\nSuccessfully Deleted - {productcode}-{extra_details[0]}-{extra_details[1]}')
+            if len(extra_details)!=0:                                                              # if product exist
 
-        elif confirm=='n' or confirm=='no':
+                extra_details=list(extra_details[0].values())                                      # retrieving useful data 
 
-            print('\nNot Deleted!')
+                print(f'\nWARNING! NOT RECOVERABLE AFTER DELETION\n')
+                
+                confirm=input(f'{color(4)}Are You Sure You Want To  Delete(Y/n){color()} \'{productcode}-{extra_details[0]}-{extra_details[1]}\'{color(4)} : {color()}')
 
-        else:
+                if confirm=='y' or confirm=='yes':
 
-            print('\nUnkown Input!')
+                    query='DELETE FROM LAPTOP WHERE PRODUCTCODE=%s'
 
-    else:
+                    cursor.execute(query,p_code)
 
-        print('\nOops! Product Not Exist')
+                    connector.commit()
+
+                    print(f'\nSuccessfully Deleted - {productcode}-{extra_details[0]}-{extra_details[1]}')
+
+                elif confirm=='n' or confirm=='no':
+
+                    print('\nNot Deleted!')
+
+                elif confirm=='exit':
+
+                    break
+
+                else:
+
+                    print('\nUnkown Input!')
+
+            else:
+
+                print('\nOops! Product Not Exist')
+
+        # if only one product is to delete
+        if many==False:
+            break
+            
+        productcode=input(f'\n{color(4)}Enter productcode:{color()}')                         # input of identity of product
+
+        if productcode=='exit':
+            
+            break
+
+        
 
 
 
