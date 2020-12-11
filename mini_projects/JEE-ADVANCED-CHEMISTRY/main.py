@@ -17,9 +17,8 @@ cursor=connector.cursor()
 
 # welcome message
 def welcome_message():
-    print('''\n\nWELCOME TO 
-JEE-ADVANCED-ORGANIC PRACTICE DATABASE 
-CREATED BY SURAJSHUKLA
+    print('''\n\nWELCOME SURAJ SHUKLA
+LET'S CRACK IT
 
 USE 'help' COMMAND TO SEE ALL THE AVAILABLE FUNCTIONS\n\n''')
 
@@ -731,11 +730,10 @@ def show_chapters():
 
 
 # to show notes of specified chapter
-def notes(chapter_number=None,level=1):
+def notes(chapter_number=None,level=1,all=False):
 
     if chapter_number==None:
         chapter_number=input(f'{color(4)}Enter Chapter Number : {color()}')
-
 
     # extracting chaptername
     cursor.execute(f'SELECT CHAPTERNAME,TOTAL_QUESTIONS_LEVEL_1 FROM PROGRESS_REPORT WHERE CHAPTERNUMBER={chapter_number}')
@@ -757,7 +755,7 @@ def notes(chapter_number=None,level=1):
 
         print(f'{color(3)}\tQUESTION NUMBER-{note[0]}{color()} : {note[1]}')
 
-    while True:
+    while all==False:
 
         question_number=input(f'\n{color(6)}Enter Question Number{color()} : ')
 
@@ -812,6 +810,18 @@ def notes(chapter_number=None,level=1):
         cursor.execute(query,p_meter)
 
         connector.commit()
+
+# to show all notes
+
+def notes_all():
+
+    cursor.execute('SELECT CHAPTERNUMBER FROM PROGRESS_REPORT')
+
+    chapter_numbers=cursor.fetchall()
+
+    for chapter in chapter_numbers:
+
+        notes(chapter[0],all=True)
 
 # to resume journey
 def resume():
@@ -1047,7 +1057,7 @@ def master_key(master_command=None):
 # help
 def help():
 
-    f=open('/home/surajshukla7656/Documents/nextpython/mini_projects/JEE-ADVANCED-CHEMISTRY/README','r')
+    f=open('/home/surajshukla7656/Documents/Python/nextpython/mini_projects/JEE-ADVANCED-CHEMISTRY/README','r')
 
     for line in f.readlines():
 
