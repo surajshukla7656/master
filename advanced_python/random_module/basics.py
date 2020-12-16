@@ -6,9 +6,9 @@ setstate(random.getstate())	         ##                                     Rest
 getrandbits(n)	                     ##                                     Returns a number representing the random bits
 randrange(start,stop,step)	         ##                                     Returns a random number between the given range
 randint(start,stop)	                 ##                                     Returns a random number between the given range,includes extremities
-choice()	                         ##                                     Returns a random element from the given sequence
+choice(l)	                         ##                                     Returns a random element from the given sequence
 choices(seq,weights/cum_weights,k)   ##                                     Returns a list with a random selection from the given sequence
-shuffle(seq,function)                ##                                     Takes a sequence and returns the sequence in a random order
+shuffle(seq,function)                ##                                     Takes a sequence and changes the original sequence in a random order
 sample(seq,k)	                     ##                                     Returns a given sample of a sequence
 random()	                         ##                                     Returns a random float number between 0 and 1
 uniform(low, hight)             	 ##                                     Returns a random float number between two given parameters

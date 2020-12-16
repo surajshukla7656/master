@@ -1,16 +1,12 @@
-'''python program to create a menu interface for the 
-performing CRUD in the database'''
-
 # imported module
-import main
-import mysql.connector
+import pro1  as main
 
 # main menu
 def menu():
 
-    # identifying user
-    user=main.credential_verifications()
+    print(main.color(),'*'*5,f'{main.color(4)}MENU DRIVER{main.color()}','*'*5)
 
+    
     # welcome message 
     main.welcome_message()
 
@@ -18,14 +14,12 @@ def menu():
     #infinite loop
     while True:
 
-        try:
+        # try:
             #prompt
-            prompt=input(f'\n{main.color(5)}OSIRIS_ELECTRONICS/{user} ${main.color()} ')
+            prompt=input(f'{main.color(5)}Prompt${main.color()} ')
 
             #operations
             if prompt!="":
-
-                prompt=main.operator_manager(prompt)
                 
                 # to exit
                 if prompt=='exit()' or prompt=='e()':
@@ -39,12 +33,12 @@ def menu():
 
                     eval(f'main.{prompt}')
 
-        except mysql.connector.Error as error :
+        # except:
 
-            print(f'Error : {error}')
+        #     print('Invalid Input!\n')
+           
+        #     continue
 
-        except :
 
-            print('Error')
-        
+            
 menu()

@@ -1,7 +1,4 @@
 import mysql.connector
-from mysql.connector import Error
-from mysql.connector import errorcode
-
 
 try: 
     connector1=mysql.connector.connect(
@@ -11,7 +8,7 @@ try:
         database="school_management"
     )
 
-except mysql.connector.Error as error :
+except mysql.connector.Error as error:
     print(f"UNABLE TO CONNECT DUE T0 \n {error}")
 
 finally :

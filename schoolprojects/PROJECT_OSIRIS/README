@@ -3,7 +3,8 @@
 
 ---> operator_manager() - processes the input command (of the menu prompt)
     
-    1. replaces space by underscore 
+    1. del interpreted as delete_products() and del- as delete_products(item) 
+    2. replaces space by underscore 
     2. adds parentheses at the end if not present 
     3. lowers the case 
 
@@ -15,8 +16,7 @@
 
 3.show_users()
 
-4.remove_users(username)
-
+4.remove_users(username) # owner can't be remove
 
 ********************************** CRUD *************************************
 ---> CREATE OPERATIONS
@@ -49,9 +49,14 @@
         23.productcode
         24.others
 
+    commands :
+        ch : to correct entered details immediately
+
 2. add_laptops()
         it uses add_laptop to add LAPTOPs one by one
 
+3. add()
+        it shows available commands to create data
 ---> RETRIEVE OPERATIONS
 
 1. display(brand=None,model_no=None,processor=None,graphic_card=None,os=None,ram=None,display=None,storage=None,camera=None,battery=None,keyboard=None,other_inputs=None,speakers=None,ports=None,wifi=None,bluetooth=None,weight=None,warranty=None,year_of_release=None,manufacture_in_country=None,stocks=None,price=None,others=None,productcode=None):
@@ -85,9 +90,12 @@
 
 2. display_all()
 
-3. display_products() - to display names of product only
+3. display_products() - to display names of product only {use with del}
 
 4. stocks(product='all') - to display stocks of laptops 
+
+5. search()
+        it shows available commands to  search/retrieve data
 
 ---> UPDATE OPERATIONS
 
@@ -99,20 +107,31 @@
     4.update
 
 
-2. update() ---> updating specific details of products using productcode
+2. update_a() ---> updating specific details of products using productcode
     
     first takes a productcode of a product 
     then display all parameters one by one to update or skip
 
+3. update_stocks()
+
+4. update()
+
+    it shows all available commands for updating data
 
 ---> DELETE OPERATIONS
 
-1.delete_p() ---> delete a product completely from the database (not recoverable) using productcode
+1. delete_products(productcode,many=False) ---> delete a product completely from the database (not recoverable) using productcode
+    many=True(when deleting many products)
+    many=False(deleting single product)
 
+2. del_empty_stocks()
 
---------------------------- customer CRUD ----------------------------------
+3. delete() 
+    it shows all available commands for deletions
 
-1.new purchase() 
+--------------------------- transaction ----------------------------------
+
+1. transaction() 
 
     PARAMETERS:
 
@@ -123,9 +142,11 @@
         5.discount(in %)
         6.GST(IN %)
 
-2.new_purchases(customername=None,customeremail=None,customerphone=None)
+2. transactions(customername=None,customeremail=None,customerphone=None)
 
-3.all purchases() - it display all the purchases made 
+3. all_purchases() - it display all the purchases made 
+
+4. trans() - to see the available commands for transactions
 
 --------------------------- DATABASE INFORMATION -----------------------------
 
@@ -153,7 +174,7 @@ LAPTOP :
     | BLUETOOTH              | varchar(40) | YES  |     | NULL    |                |
     | WEIGHT                 | varchar(10) | YES  |     | NULL    |                |
     | WARRANTY               | varchar(20) | YES  |     | NULL    |                |
-    | YEAR_OF_RELEASE        | varchar(4)  | YES  |     | NULL    |                |
+    | YEAR_OF_RELEASE        | varchar(10) | YES  |     | NULL    |                |
     | MANUFACTURE_IN_COUNTRY | varchar(20) | YES  |     | NULL    |                |
     | STOCKS                 | int         | YES  |     | 0       |                |
     | PRICE                  | int         | YES  |     | 0.00    |                |

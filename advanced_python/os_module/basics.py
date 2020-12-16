@@ -6,7 +6,7 @@ rmdir()                                                  ##                     
 remove()                                                 ##                                          removes file
 chdir()                                                  ##                                          changes working directory
 getcwd()                                                 ##                                          return current working directory
-listdir()                                                  ##                                          return list of directories and files in the specified directory
+listdir()                                                ##                                          return list of directories and files in the specified directory
 path.exists()                                            ##                                          return True if path exist
 path.isabs()                                             ##                                          return True if specified path is absolute
 path.isfile()                                            ##                                          return True if specified path is of a file
