@@ -817,12 +817,14 @@ def transaction(customername=None,customeremail=None,customerphone=None):
 
             continue
 
+        # managing email
         elif fields[i]=='customer email ID' and 'mail.com' not in detail and '@' not in detail :
 
             print('\n-------->>>Invalid Email!')
 
             continue
-
+        
+        # calculating discount
         elif fields[i]=='discount(in %)':
 
             if detail=='':
@@ -833,6 +835,7 @@ def transaction(customername=None,customeremail=None,customerphone=None):
 
             amount_after_applying_discount=int(details[0]['PRICE'])-discount_price
 
+        # calculating gst
         elif fields[i]=='GST(IN %)':
             
             if detail=='':
@@ -843,6 +846,7 @@ def transaction(customername=None,customeremail=None,customerphone=None):
 
             amount_after_applying_gst=amount_after_applying_discount+GST_price
 
+        # managing phone no
         elif fields[i]=='phone no.' :
 
             if detail=='':
@@ -876,6 +880,7 @@ def transaction(customername=None,customeremail=None,customerphone=None):
 
     parameters.append(amount_after_applying_gst)
 
+    # adding transaction time
     parameters.append(datetime.datetime.today())
 
     parameters.append(datetime.datetime.today())
@@ -899,12 +904,12 @@ def transaction(customername=None,customeremail=None,customerphone=None):
 
     return parameters[0:4]
 
-# to add many purchases
-def new_purchases(customername=None,customeremail=None,customerphone=None):
+# to add more than one transactions
+def transactions(customername=None,customeremail=None,customerphone=None):
 
     while True:
 
-        parameters=new_purchase(customername=customername,customeremail=customeremail,customerphone=customerphone)
+        parameters=transaction(customername=customername,customeremail=customeremail,customerphone=customerphone)
 
         decision=input(f'\n{color(4)}Enter more transaction {color()}: ')
 
@@ -924,8 +929,8 @@ def new_purchases(customername=None,customeremail=None,customerphone=None):
 
 
 
-# showing all purchases made
-def all_purchases():
+# to show all transation
+def all_transactions():
     
     query='SELECT * FROM PURCHASES'
 
@@ -941,7 +946,16 @@ def all_purchases():
 
             print(f'''{color(6)}{x}:{color()}{y}''')
 
+# to show transaction related command
+def trans():
 
+    print('''Available Command :
+
+transaction - to make single transaction
+transactions - to make more than one transaction
+all transaction - to show all transaction 
+
+To Know More Use - help ''')
 
 '''----------------------------------------------------- HELP ----------------------------------------------------'''
 
@@ -956,11 +970,31 @@ def help():
 
         print(line,end='')
 
+# driver's code
 if __name__=='__main__':
    
-   #stocks(10008)
+#    add_laptops()
 
-   #update_stocks(10008,23)
+#    add()
 
-   new_purchases()
-   pass
+#    display_all()
+
+#    display_products()
+
+#    update_s()
+
+#    update_a()
+
+#    update()
+
+#    delete()
+
+#    delete_products()
+
+    transaction()
+
+    transactions()
+
+    all_transactions()
+
+    help()
