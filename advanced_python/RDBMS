@@ -1,0 +1,46 @@
+# major component of RDBMS
+
+    1. Table
+    2. Record or Tuple
+    3. Field or Column name or Attribute
+    4. Domain - permitted value for a column
+    5. Instance
+    6. Schema - design of database (physical/logical/view)
+    7. Keys 
+
+# keys 
+
+
+    Primary Key – A primary is a column or set of columns in a table that uniquely identifies tuples (rows) in that table.
+
+    Super Key – A super key is a set of one of more columns (attributes) to uniquely identify rows in a table.
+
+    Candidate Key – A super key with no redundant attribute is known as candidate key
+
+    Alternate Key – Out of all candidate keys, only one gets selected as primary key, remaining keys are known as alternate or secondary keys.
+
+    Composite Key – A key that consists of more than one attribute to uniquely identify rows (also known as records & tuples) in a table is called composite key.
+
+    Foreign Key – Foreign keys are the columns of a table that points to the primary key of another table. They act as a cross-reference between tables.
+
+
+# Relational algebra
+
+1. Basic Operations
+2. Derived Operations
+
+Basic/Fundamental Operations:
+1. Select (σ)
+2. Project (∏)
+3. Union (∪)
+4. Set Difference (-)
+5. Cartesian product (X)
+6. Rename (ρ)
+
+Derived Operations:
+1. Natural Join (⋈)
+2. Left, Right, Full outer join (⟕, ⟖, ⟗)
+3. Intersection (∩)
+4. Division (÷)
+5. Equijoin
+6. Theta (θ) Join

@@ -1,0 +1,404 @@
+[4:01 PM, 11/23/2020] Vinod Sir: # mysql_connection1.py
+import mysql.connector
+
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123'
+)
+
+print(mydb)
+[4:02 PM, 11/23/2020] Vinod Sir: # mysql_connection2.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE DATABASE mydatabase")
+[4:02 PM, 11/23/2020] Vinod Sir: # mysql_connection3.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SHOW DATABASES")
+
+for x in mycursor:
+    print(x)
+[4:02 PM, 11/23/2020] Vinod Sir: # mysql_connection4.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+[4:02 PM, 11/23/2020] Vinod Sir: # mysql_connection5.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))")
+[4:02 PM, 11/23/2020] Vinod Sir: # mysql_connection6.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SHOW TABLES")
+
+for x in mycursor:
+    print(x)
+[4:03 PM, 11/23/2020] Vinod Sir: # mysql_connection7.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("ALTER TABLE customers ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY FIRST")
+[4:03 PM, 11/23/2020] Vinod Sir: # mysql_connection8.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+val = ("John", "Highway 21")
+mycursor.execute(sql, val)
+
+mydb.commit()
+
+print(mycursor.rowcount, "record inserted.")
+[4:03 PM, 11/23/2020] Vinod Sir: # mysql_connection9.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+val = [
+  ('Peter', 'Lowstreet 4'),
+  ('Amy', 'Apple st 652'),
+  ('Hannah', 'Mountain 21'),
+  ('Michael', 'Valley 345'),
+  ('Sandy', 'Ocean blvd 2'),
+  ('Betty', 'Green Grass 1'),
+  ('Richard', 'Sky st 331'),
+  ('Susan', 'One way 98'),
+  ('Vicky', 'Yellow Garden 2'),
+  ('Ben', 'Park Lane 38'),
+  ('William', 'Central st 954'),
+  ('Chuck', 'Main Road 989'),
+  ('Viola', 'Sideway 1633')
+]
+
+mycursor.executemany(sql, val)
+
+mydb.commit()
+
+print(mycursor.rowcount, "records were inserted.")
+[4:03 PM, 11/23/2020] Vinod Sir: # mysql_connection10.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+val = ("Michelle", "Blue Village")
+mycursor.execute(sql, val)
+
+mydb.commit()
+
+print("1 record inserted, ID:", mycursor.lastrowid)
+[4:03 PM, 11/23/2020] Vinod Sir: # mysql_connection11.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SELECT * FROM customers")
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+[4:04 PM, 11/23/2020] Vinod Sir: # mysql_connection12.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("ALTER TABLE customers MODIFY id INT auto_increment FIRST")
+
+mycursor.execute("DESCRIBE customers")
+
+for x in mycursor:
+    print(x)
+[4:05 PM, 11/23/2020] Vinod Sir: # mysql_connection13.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SELECT name, address FROM customers")
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+[4:05 PM, 11/23/2020] Vinod Sir: # mysql_connection14.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SELECT * FROM customers")
+
+myresult = mycursor.fetchone()
+
+print(myresult)
+[4:05 PM, 11/23/2020] Vinod Sir: # mysql_connection15.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "SELECT * FROM customers WHERE address ='Park Lane 38' "
+
+mycursor.execute(sql)
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+[4:05 PM, 11/23/2020] Vinod Sir: # mysql_connection17.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "SELECT * FROM customers WHERE address = %s"
+adr = ("Yellow Garden 2", )
+
+mycursor.execute(sql, adr)
+
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+[4:06 PM, 11/23/2020] Vinod Sir: # mysql_connection16.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "SELECT * FROM customers WHERE address LIKE '%way%' "
+
+mycursor.execute(sql)
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+[4:06 PM, 11/23/2020] Vinod Sir: # mysql_connection18.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "SELECT * FROM customers ORDER BY name DESC"
+
+mycursor.execute(sql)
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
+[4:06 PM, 11/23/2020] Vinod Sir: # mysql_connection19.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "DELETE FROM customers WHERE address = 'Mountain 21'"
+
+mycursor.execute(sql)
+
+mydb.commit()
+
+print(mycursor.rowcount, "record(s) deleted")
+[4:06 PM, 11/23/2020] Vinod Sir: # mysql_connection20.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "DELETE FROM customers WHERE address = %s"
+adr = ("Yellow Garden 2", )
+
+mycursor.execute(sql, adr)
+
+mydb.commit()
+
+print(mycursor.rowcount, "record(s) deleted")
+[4:06 PM, 11/23/2020] Vinod Sir: # mysql_connection21.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "DROP TABLE customers"
+
+mycursor.execute(sql)
+[4:06 PM, 11/23/2020] Vinod Sir: # mysql_connection22.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+
+sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'"
+
+mycursor.execute(sql)
+
+mydb.commit()
+
+print(mycursor.rowcount, "record(s) affected")
+[4:07 PM, 11/23/2020] Vinod Sir: # mysql_connection23.py
+import mysql.connector
+
+mydb = mysql.connector.connect (
+    host = 'localhost',
+    user = 'user1',
+    password = 'user123',
+    database = 'mydatabase'
+)
+
+mycursor = mydb.cursor()
+mycursor.execute("SELECT * FROM customers LIMIT 5 OFFSET 2")
+
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)

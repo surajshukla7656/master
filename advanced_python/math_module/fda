@@ -1,0 +1,83 @@
+[9:35 AM, 11/22/2020] Vinod Sir: ython - Math Module:
+[9:35 AM, 11/22/2020] Vinod Sir: Some of the most popular mathematical functions are defined in the math module. These include trigonometric functions, representation functions, logarithmic functions, angle conversion functions, etc. In addition, two mathematical constants are also defined in this module.
+[9:36 AM, 11/22/2020] Vinod Sir: Pie (π) is a well-known mathematical constant, which is defined as the ratio of the circumference to the diameter of a circle and its value is 3.141592653589793.
+>>> import math
+>>>math.pi
+3.141592653589793 
+Another well-known mathematical constant defined in the math module is e. It is called Euler's number and it is a base of the natural logarithm. Its value is 2.718281828459045. 
+>>>math.e
+2.718281828459045
+[9:37 AM, 11/22/2020] Vinod Sir: The math module contains functions for calculating various trigonometric ratios for a given angle. The functions (sin, cos, tan, etc.) need the angle in radians as an argument. We, on the other hand, are used to express the angle in degrees. The math module presents two angle conversion functions: degrees() and radians(), to convert the angle from degrees to radians and vice versa. For example, the following statements convert the angle of 30 degrees to radians and back (Note: π radians is equivalent to 180 degrees). 
+>>>math.radians(30)
+0.5235987755982988
+>>>math.degrees(math.pi/6)
+29.999999999999996 
+The following statements show sin, cos and tan ratios for the angle of 30 degrees (0.5235987755982988 radians): 
+>>math.sin(0.5235987755982988)
+0.499999999999…
+[9:37 AM, 11/22/2020] Vinod Sir: math.log()
+The math.log() method returns the natural logarithm of a given number. The natural logarithm is calculated to the base e. 
+>>>math.log(10)
+2.302585092994046 
+math.log10()
+The math.log10() method returns the base-10 logarithm of the given number. It is called the standard logarithm. 
+>>>math.log10(10)
+1.0 
+math.exp()
+The math.exp() method returns a float number after raising e (math.e) to given number. In other words, exp(x) gives e**x. 
+>>>math.exp(10)
+1.0 
+This can be verified by the exponent operator. 
+>>>math.e**10
+22026.465794806703
+[9:38 AM, 11/22/2020] Vinod Sir: math.pow()
+The math.pow() method receives two float arguments, raises the first to the second and returns the result. In other words, pow(4,4) is equivalent to 4**4. 
+>>>math.pow(2,4)
+16.0
+>>>2**4
+16 
+math.sqrt()
+The math.sqrt() method returns the square root of a given number. 
+>>>math.sqrt(100)
+10.0
+>>>math.sqrt(3)
+1.7320508075688772
+[9:38 AM, 11/22/2020] Vinod Sir: The following two functions are called representation functions. The ceil() function approximates the given number to the smallest integer, greater than or equal to the given floating point number. The floor() function returns the largest integer less than or equal to the given number. 
+>>>math.ceil(4.5867)
+5
+>>>math.floor(4.5687)
+4
+[9:39 AM, 11/22/2020] Vinod Sir: Dear students go through this material and confirm that you have understood the concepts.
+[10:16 PM, 11/22/2020] Vinod Sir: Positional parameters, keyword parameters etc.:
+[10:16 PM, 11/22/2020] Vinod Sir: Positional arguments are arguments that can be called by their position in the function definition.
+
+Keyword arguments are arguments that can be called by their name.
+
+Required arguments are arguments that must passed to the function.
+
+Optional arguments are argument that can be not passed to the function. In python optional arguments are arguments that have a default value.
+[10:16 PM, 11/22/2020] Vinod Sir: def fn (a, b, c = 1):          # a and b required, c optional.
+    return a * b + c
+
+print (fn (1, 2))               # returns 3, positional and default.
+print (fn (1, 2, 3))            # returns 5, positional.
+print (fn (c = 5, b = 2, a = 2)) # returns 9, named.
+print (fn (b = 2, a = 2))       # returns 5, named and default.
+print (fn (5, c = 2, b = 1))     # returns 7, positional and named.
+print (fn (8, b = 0))           # returns 1, positional, named and default.
+[10:17 PM, 11/22/2020] Vinod Sir: Output:
+[10:18 PM, 11/22/2020] Vinod Sir: 3
+5
+9
+5
+7
+1
+[10:19 PM, 11/22/2020] Vinod Sir: Note:
+The meaning of the = changes, depending on whether it's in the definition or in the call.
+
+In the definition, it marks the argument optional and sets a default value.
+
+In the call, it simply allows you to specify which arguments should be which values, in whatever order you want.
+[10:20 PM, 11/22/2020] Vinod Sir: This concept is important from CBSE Exam point of view. So go through it and confirm thatyou have understood the concept.
+
+
