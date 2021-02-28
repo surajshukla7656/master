@@ -1,3 +1,4 @@
+# this is the main code 
 # main body
 
 import time
@@ -126,7 +127,7 @@ def new():
             print(f'{color(2)}question-{question_no} :{color()}{answer_keys[question_no-1][1]}')
 
             # verifying 10 at a time 
-            if question_no%10==0 or question_no==len(answer_keys):
+            if question_no%20==0 or question_no==len(answer_keys):
 
                 # for correction
                 while True:
@@ -139,7 +140,7 @@ def new():
                         correct_answer=correct_answer.lower()
 
                         # to exit
-                        if question_number=="exit":
+                        if question_number=="exit" or question_number=='skip' or question_number=='s' or question_number=='e':
                         
                             break
 
@@ -151,11 +152,15 @@ def new():
 
                         print(f'\nQuestion Number-{question_number} -->> Corrected!\n')
 
-                    except:
+                    except mysql.connector.Error as error:
 
-                        print(f'{color(1)}Invalid Input!{color()}')
+                        print(f'{color(1)}Error : {error}{color()}')
                         continue
+                    
+                    except :
 
+                        print('Invalid Input')
+                        continue
             # to easy reading
             elif question_no%5==0:
                 print()
@@ -196,7 +201,7 @@ def correction(chapter_number=None,level=1):
             correct_answer=correct_answer.lower()
 
             # to exit
-            if question_number=="exit" or quesion_number=='e' :
+            if question_number=="exit" or question_number=='e' :
             
                 break
 
@@ -208,9 +213,19 @@ def correction(chapter_number=None,level=1):
 
             print(f'\nQuestion Number-{question_number} -->> Corrected!\n')
 
-        except:
+        except mysql.connector.Error as error:
+
+            print(f'{color(1)}Error : {error}{color()}')
+            continue
+                    
+        except TypeError  :
 
             print(f'{color(1)}Invalid Input!{color()}')
+            continue
+        
+        except :
+
+            print('Invalid Input-2')
             continue
     print()
         
@@ -303,6 +318,42 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
             if your_ans=='exit':
 
                 break
+                
+            elif your_ans=='pi':
+
+                start_from_question_number-=1  
+
+                cursor.execute(f'UPDATE {chapter_name} SET IMPORTANT=\'TRUE\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
+
+                print(f'--------->>> {color(4)}ADDED LAST QUESTION AS IMPORTANT{color()}')
+
+                start_from_question_number+=1  
+
+                continue
+
+            elif your_ans=='i':
+
+                cursor.execute(f'UPDATE {chapter_name} SET IMPORTANT=\'TRUE\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
+
+                print(f'--------->>> {color(4)}ADDED IMPORTANT{color()}')
+
+                # correct answer
+                print(F'\n--->{color(4)} Correct Answer is - {color()}{answer_key[start_from_question_number-1][1]}')
+                
+                # other information{i[0]}
+                notes=input(f'\n--->{color(6)} Enter Note : {color()}')
+
+                if notes=='':
+
+                    pass
+
+                else:
+                    
+                    print(f'--------->>> {color(4)}ADDED{color()}')
+
+                    cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'INCORRECT\' ,NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[start_from_question_number-1][0]}')
+                    
+                    connector.commit()
 
             # to see answer and skip
             elif your_ans=='sa':
@@ -481,6 +532,11 @@ def start(chapter_number=None,chapter_name=None,level=None,start_from_question_n
         
         progress_report_manager(chapter_number,start_from_question_number,previous_report,time_taken)
 
+        # removing NONE from notes
+        try : 
+            cursor.execute(F'UPDATE {chapter_name} SET NOTE_{level}=NULL WHERE NOTE_{level}="NONE"')
+        except mysql.connector.Error as error : 
+            print(error)
 
 # to start the practice session
 def left(chapter_number=None):
@@ -505,7 +561,8 @@ def left(chapter_number=None):
 
     else:
 
-        level=input(F'\n{color(2)}Enter level :{color()} ')
+        level=1
+        # level=input(F'\n{color(2)}Enter level :{color()} ')
     
     # creating previous report buffer
 
@@ -551,6 +608,255 @@ def left(chapter_number=None):
 
                 break
             
+            # ADDING IMPORTANT BOOKMARK
+            elif your_ans=='i':
+
+                cursor.execute(f'UPDATE {chapter_name} SET IMPORTANT=\'TRUE\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                print(f'--------->>> {color(4)}ADDED AS IMPORTANT{color()}')
+        
+            # to see answer and skip
+            elif your_ans=='sa':
+
+                print(F'\n--->{color(4)} Correct Answer is - {color()}{answer_key[count][1]}')
+                    
+                # other information{i[0]}
+                notes=input(f'\n--->{color(4)} Enter Note:{color()}')
+
+                if notes=='':
+
+                    pass
+
+                else:
+                    print(f'--------->>> {color(4)}ADDED{color()}')
+
+                    cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'INCORRECT\' ,NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                    connector.commit()
+
+
+
+            # if skipped
+            elif your_ans=='s' or your_ans=='skip' or your_ans=='':
+
+                cursor.execute(f'SELECT STATUS_1 FROM {chapter_name} WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                status=cursor.fetchone()
+                
+                if status[0]==None:
+
+                    cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'SKIPPED\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                    connector.commit()
+
+                    print(f'--------->>> {color(4)}SKIPPED{color()}')
+
+                else:
+
+                    print(f'Status : {status[0]}')
+            
+            # to move on previous problem
+            elif your_ans=='p':
+
+                count-=1  
+
+                continue
+
+            # add note during skipping
+            elif your_ans=='sn':
+
+                # skipping
+                cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'SKIPPED\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                connector.commit()
+
+                print(f'--------->>> {color(4)}SKIPPED{color()}')
+                
+
+                # adding note
+                notes=input(f'\n--->{color(6)} Enter Notes : {color()}')
+
+                if notes=='':
+
+                    pass
+
+                else:
+                    print(f'--------->>> {color(4)}ADDED{color()}')
+                
+                    cursor.execute(f'UPDATE {chapter_name} SET NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                    connector.commit()
+                
+            # to enter note in previous question
+            elif your_ans=='pn':
+
+                count-=1  
+
+                # note
+                notes=input(f'\n--->{color(6)} Enter Notes In Previous Question -{answer_key[count][0]}: {color()}')
+
+                if notes=='':
+
+                    pass
+
+                else:
+                    print(f'--------->>> {color(4)}ADDED{color()}')
+                
+                    cursor.execute(f'UPDATE {chapter_name} SET NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                    connector.commit()
+
+                count+=1
+
+                continue
+
+            # if correct 
+            elif your_ans==answer_key[count][1]:
+
+                print(f'--------->>> {color(4)}CORRECT ANSWER{color()}\n')
+
+                cursor.execute(f'UPDATE {chapter_name} SET MY_ANSWER_{level}=\'{your_ans}\',STATUS_{level}=\'CORRECT\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                connector.commit()
+           
+            # if saved answer is wrong 
+           
+            elif your_ans=='wrong':
+
+                correction(chapter_number)
+
+                continue
+
+            # if wrong
+            else:
+
+                print(f'--------->>> {color(1)}INCORRECT ANSWER\n{color()}')
+
+                decision=input(f'{color(6)}--------->>> Want To See Solution:{color()}')
+
+                decision=decision.lower()
+
+                if decision=='y':                # correct answer
+
+                    print(F'\n--->{color(4)} Correct Answer is - {color()}{answer_key[count][1]}')
+                    
+                    # other information{i[0]}
+                    notes=input(f'\n--->{color(4)} Enter Note:{color()}')
+
+                    if notes=='':
+
+                        notes=None
+                    
+                    print(f'--------->>> {color(4)}ADDED{color()}')
+
+                    cursor.execute(f'UPDATE {chapter_name} SET STATUS_{level}=\'INCORRECT\' ,NOTE_{level}=\'{notes}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                    connector.commit()
+
+                # to exit
+                elif decision=="exit":
+                    
+                    break
+
+                else:
+                    continue
+            
+            count+=1 
+
+            if count==len(answer_key):
+                
+                print(f'\nYou Have Completed')
+
+                break
+
+        # time end
+        t_end=time.time()
+
+        # end time
+        t_end=time.time()
+        time_taken=round(((t_end-t_start)/60),2)
+        
+        # to update progress report 
+        
+        progress_report_manager(chapter_number,None,previous_report,time_taken)
+
+# important questions
+def important(chapter_number=None):
+
+    if chapter_number==None:
+
+        chapter_number=input(f'{color(4)}Enter Chapter Number : {color()}')
+
+    # to select chapter to start 
+
+    cursor.execute(f'SELECT CHAPTERNAME FROM PROGRESS_REPORT WHERE CHAPTERNUMBER={chapter_number}')
+
+    chapter_name=cursor.fetchone()
+
+    chapter_name=chapter_name[0]
+
+    print(f'\n{color(4)}CHAPTER NAME{color()} : {chapter_number}, {color(4)}CHAPTER NAME{color()} : {chapter_name}')
+    
+    if chapter_name==None:
+
+        print('\n\nChapter Does Notprevious_report[0][6]- Exit! Please Add It.')
+
+    else:
+
+        level=1
+        # level=input(F'\n{color(2)}Enter level :{color()} ')
+    
+    # creating previous report buffer
+
+    cursor.execute(f'SELECT * FROM PROGRESS_REPORT WHERE CHAPTERNUMBER={chapter_number}')
+
+    previous_report=cursor.fetchall()
+    previous_report=list(previous_report)
+        
+    # creating answer key buffer
+    cursor.execute(F'SELECT * FROM {chapter_name} WHERE IMPORTANT=\'TRUE\' ')
+
+    answer_key=cursor.fetchall()
+    print(f'{color(2)}TOTAL QUESTIONS LEFT{color()} : {len(answer_key)}')
+    count=0
+    
+    # checking the available questions (left or not)
+    if len(answer_key)==0:
+
+        print('No Questions Left')
+    
+    else:
+        
+        # time start
+        t_start=time.time()
+
+        # to give answer
+        while True:
+
+            t_ques_start=time.time()
+
+            # input of answer
+            your_ans=input(f'\n{color(6)}Enter your answer of question number-{answer_key[count][0]} : {color()}')
+
+            # time taken to answer
+            t_ques_end=time.time()
+
+            print(f'{color(6)}Time taken{color()} : {round(t_ques_end-t_ques_start,2)} seconds / {round((t_ques_end-t_ques_start)/60,2)} minutes')
+
+            # lowering the case
+            your_ans=your_ans.lower()
+
+            if your_ans=='exit':
+
+                break
+            
+            # ADDING IMPORTANT BOOKMARK
+            elif your_ans=='ri':
+
+                cursor.execute(f'UPDATE {chapter_name} SET IMPORTANT=\'{None}\' WHERE QUESTION_NUMBER_LEVEL_1={answer_key[count][0]}')
+
+                print(f'--------->>> {color(4)}ADDED AS IMPORTANT{color()}')
+        
             # to see answer and skip
             elif your_ans=='sa':
 
@@ -717,7 +1023,6 @@ def left(chapter_number=None):
         progress_report_manager(chapter_number,None,previous_report,time_taken)
 
 
-
 # to show all added chapters
 def show_chapters():
 
@@ -725,8 +1030,24 @@ def show_chapters():
 
     chapters=cursor.fetchall()
 
+    print(F'TOTAL CHAPTERS - {len(chapters)}')
+    
     for chapter in chapters:
         print(f'{color(4)}\nChapter Number : {color()}{chapter[0]}, {color(4)}Chapter Name : {color()}{chapter[1]}, {color(4)}Total Questions{color()} : {chapter[2]}, {color(4)}Correct Questions{color()} : {chapter[3]}, {color(4)}Questions Left{color()} : {chapter[4]+chapter[5]}\n')
+
+# to show mini report
+def mini_report():
+
+    cursor.execute('SELECT CHAPTERNUMBER,CHAPTERNAME,TOTAL_QUESTIONS_LEVEL_1,WRONG_OR_SKIPPED_QUESTIONS_LEVEL_1 FROM PROGRESS_REPORT WHERE CORRECT_QUESTIONS_LEVEL_1!=0')
+
+    chapters=cursor.fetchall()
+    
+    print(F'TOTAL CHAPTERS - {len(chapters)}')
+    
+    for chapter in chapters:
+        print(f'{color(4)}\nChapter Number : {color()}{chapter[0]}, {color(4)}\tChapter Name : {color()}{chapter[1]}, {color(4)}\t\tTotal Questions{color()} : {chapter[2]}, {color(4)}\t\tQuestions Remaining{color()}: {chapter[3]}')
+
+
 
 
 # to show notes of specified chapter
@@ -746,70 +1067,71 @@ def notes(chapter_number=None,level=1,all=False):
 
     notes=cursor.fetchall()
 
-    print(f'''\n{color(4)}CHAPTER NUMBER{color()} : {chapter_number},
+    if len(notes)!=0:
+        print(f'''\n{color(4)}CHAPTER NUMBER{color()} : {chapter_number},
 {color(4)}CHAPTER NAME{color()} : {chapter_name},
 {color(4)}TOTAL QUESTIONS{color()} : {total_questions}\n''')
-    
-    print(f'NOTES(TOTAL-{len(notes)}) :')
-    for note in notes:
-
-        print(f'{color(3)}\tQUESTION NUMBER-{note[0]}{color()} : {note[1]}')
-
-    while all==False:
-
-        question_number=input(f'\n{color(6)}Enter Question Number{color()} : ')
-
-        # to break
-        if question_number=='exit' or question_number=='e':
-
-            break
-            
-        elif question_number=='':
-
-            continue
-
-        elif question_number.isdigit()==False:
-
-            print("Only Int are allowed!")
-
-            continue
         
-        # new note
-        new_note=input(f'{color(6)}Enter New Note{color()} : ')
+        print(f'NOTES(TOTAL-{len(notes)}) :')
+        for note in notes:
 
-        # skip
-        if new_note=='':
+            print(f'{color(3)}\tQUESTION NUMBER-{note[0]}{color()} : {note[1]}')
 
-            continue
+        while all==False:
+
+            question_number=input(f'\n{color(6)}Enter Question Number{color()} : ')
+
+            # to break
+            if question_number=='exit' or question_number=='e':
+
+                break
+                
+            elif question_number=='':
+
+                continue
+
+            elif question_number.isdigit()==False:
+
+                print("Only Int are allowed!")
+
+                continue
             
-        # to make note --> null
-        elif new_note=='None' or new_note=='Null' or new_note=='n' or new_note=='N':
+            # new note
+            new_note=input(f'{color(6)}Enter New Note{color()} : ')
 
-            query=f'UPDATE {chapter_name} SET NOTE_1=NULL WHERE QUESTION_NUMBER_LEVEL_1={question_number}'  
+            # skip
+            if new_note=='':
 
-            cursor.execute(query)
+                continue
+                
+            # to make note --> null
+            elif new_note=='None' or new_note=='Null' or new_note=='n' or new_note=='N':
+
+                query=f'UPDATE {chapter_name} SET NOTE_1=NULL WHERE QUESTION_NUMBER_LEVEL_1={question_number}'  
+
+                cursor.execute(query)
+
+                connector.commit()
+
+                continue
+            
+            # to exit/break
+            elif new_note=='e' or new_note=='exit':
+
+                break
+
+            else:
+                pass
+            
+            query=f'UPDATE {chapter_name}'+' SET NOTE_1=%s WHERE QUESTION_NUMBER_LEVEL_1=%s'  
+
+            # query=f'UPDATE {chapter_name} SET NOTE_1=\'{new_note}\' WHERE QUESTION_NUMBER_LEVEL_1={question_number}'  
+
+            p_meter=(new_note,int(question_number))
+            
+            cursor.execute(query,p_meter)
 
             connector.commit()
-
-            continue
-        
-        # to exit/break
-        elif new_note=='e' or new_note=='exit':
-
-            break
-
-        else:
-            pass
-        
-        query=f'UPDATE {chapter_name}'+' SET NOTE_1=%s WHERE QUESTION_NUMBER_LEVEL_1=%s'  
-
-        # query=f'UPDATE {chapter_name} SET NOTE_1=\'{new_note}\' WHERE QUESTION_NUMBER_LEVEL_1={question_number}'  
-
-        p_meter=(new_note,int(question_number))
-        
-        cursor.execute(query,p_meter)
-
-        connector.commit()
 
 # to show all notes
 
@@ -1049,12 +1371,16 @@ def master_key(master_command=None):
 
                     print('Anonymous')
 
+        except mysql.connector.Error as error:
+
+            print(f'Error : {error}')
+            continue
+
         except :
 
-            print('Invalid Input!')
-            
-
-# help
+            print('Invalid Input')
+            continue
+# help  
 def help():
 
     f=open('/home/surajshukla7656/Documents/Python/nextpython/mini_projects/JEE-ADVANCED-CHEMISTRY/README','r')

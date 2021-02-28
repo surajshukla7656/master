@@ -1,3 +1,4 @@
+
 --->>> python program to manage practice session of jee advanced chemistry
 
 
@@ -18,18 +19,66 @@
 
 5.show_chapters() - to show all added chapters
 
-6.notes(chapter_number,level=1) - to show notes of any chapter
+6.mini_report() - to show mini report
 
-7.resume() - to resume recent journey
+7.notes(chapter_number,level=1) - to show notes of any chapter
 
-8.current() - to show current journey
+8.resume() - to resume recent journey
 
-9.record_manager(chapter_number,chapter_name,total_questions_level_1) - to add record of new chapter in progress_report
+9.current() - to show current journey
 
-10.progress_manager(chapter_number,current_question,previous_report) - to manage progresssc
+10.record_manager(chapter_number,chapter_name,total_questions_level_1) - to add record of new chapter in progress_report
 
-11.progress(chapter_number) - to show progress
+11.progress_manager(chapter_number,current_question,previous_report) - to manage progresssc
 
-12.master_key() - to handle anonymous operations
+12.progress(chapter_number) - to show progress
 
-13.help() - to display this page on command prompt
+13.master_key() - to handle anonymous operations
+
+14.help() - to display this page on command prompt
+
+
+
+------------------------------ PROGRESS REPORT -------------------------------------
+
+DESCRIBE PROGRESS_REPORT;
++------------------------------------+--------------+------+-----+---------+-------+
+| Field                              | Type         | Null | Key | Default | Extra |
++------------------------------------+--------------+------+-----+---------+-------+
+| CHAPTERNUMBER                      | int          | NO   | PRI | NULL    |       |
+| CHAPTERNAME                        | varchar(50)  | NO   |     | NULL    |       |
+| TOTAL_QUESTIONS_LEVEL_1            | int          | NO   |     | NULL    |       |
+| ATTEMPTED_QUESTIONS_LEVEL_1        | int          | YES  |     | 0       |       |
+| NON_ATTEMPTED_QUESTIONS_LEVEL_1    | int          | YES  |     | 0       |       |
+| CORRECT_QUESTIONS_LEVEL_1          | int          | YES  |     | 0       |       |
+| WRONG_OR_SKIPPED_QUESTIONS_LEVEL_1 | int          | YES  |     | 0       |       |
+| BOOKMARKED_QUESTIONS_LEVEL_1       | varchar(300) | YES  |     | NULL    |       |
+| CURRENT_QUESTION_NUMBER            | int          | YES  |     | 1       |       |
++------------------------------------+--------------+------+-----+---------+-------+
+
+
+
+----------------------- CURRENT -----------------------------
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| CHAPTER_NO   | int         | NO   | PRI | NULL    |       |
+| CHAPTER_NAME | varchar(40) | YES  |     | NULL    |       |
+| LEVEL        | int         | NO   |     | NULL    |       |
+| QUESION_NO   | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+
+
+------------------------ CHAPTER STRUCTURE ------------------------------
+
++-------------------------+--------------+------+-----+---------+-------+
+| Field                   | Type         | Null | Key | Default | Extra |
++-------------------------+--------------+------+-----+---------+-------+
+| QUESTION_NUMBER_LEVEL_1 | int          | NO   |     | NULL    |       |
+| CORRECT_ANSWER_1        | varchar(10)  | YES  |     | NULL    |       |
+| MY_ANSWER_1             | varchar(10)  | YES  |     | NULL    |       |
+| STATUS_1                | varchar(30)  | YES  |     | NULL    |       |
+| NOTE_1                  | varchar(300) | YES  |     | NULL    |       |
++-------------------------+--------------+------+-----+---------+-------+

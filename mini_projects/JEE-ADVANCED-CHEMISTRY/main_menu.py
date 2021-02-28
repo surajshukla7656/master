@@ -1,3 +1,4 @@
+
 # imported module
 import main
 
@@ -34,11 +35,9 @@ def menu():
                 else:
 
                     eval(f'main.{prompt}')
-
-        except:
-
-            print('Invalid Input!\n')
-           
+                    
+        except Exception as e:
+            print(f'Error{e}')
             continue
 
 

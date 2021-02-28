@@ -1,5 +1,6 @@
 ''''this program provides different functions to perform 
 CRUD in a database'''
+
 # imported modules
 import datetime
 import mysql.connector
@@ -111,8 +112,8 @@ def credential_verifications():
     try:
 
         # input of username and userpassword in a single command otherwise error
-        # username,userpassword=input("Enter username and password:").split()
-        username,userpassword="owner","@123"
+        username,userpassword=input("Enter username and password:").split()
+        #username,userpassword="owner","@123"
         
         cursor.execute('SELECT USERNAME,USERPASSWORD FROM USERS')
 
@@ -232,8 +233,9 @@ def add_laptop(brand,model_no,processor=None,graphic_card=None,os=None,ram=None,
 
         for val in range(len(parameters)):
 
-            if f'{parameters[val]}'.isalnum()==False :
-                parameters[val]=parameters[val].upper()
+            if parameters[val] is not None:              # to eliminate None datatype 
+
+                parameters[val]=str(parameters[val]).upper()
 
         parameters=tuple(parameters)
 
@@ -261,7 +263,9 @@ def add_laptops():
 
             var=input(f'\n{color(4)}Enter {detail}:{color()}')
 
-            var=var.upper()                                                                                  # converting into upper case
+            # converting into upper case 
+            if var is not None:                                                                            # eliminating None data type    
+                var=var.upper()                                                                            # converting into upper case
             
             # to correct entered details
             if var=='CH':   

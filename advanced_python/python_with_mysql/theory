@@ -1,0 +1,111 @@
+python DB-API is standard python database interface for database servers such as : 
+	gadfly
+	msql
+	mysql
+	postgresal
+	microsoft sql server 2000
+	informix
+	oracle
+	sybase
+
+python application - front end interface 
+database server - back end
+
+why python?
+	flexible,portable,easy to use 
+	more effecient programming
+	platform-independent
+	manages connection with server
+
+for mysqldb - pip install mysqlclient
+
+# mysql queries
+select current_user();
+show databases;
+desc <tablename>;
+
+# establishing connection
+module_name.connect
+
+##### mysql.connector
+
+import mysql.connector
+
+# create a connection object
+
+connection_object=mysql.connector.connect(
+	host='localhost(127.0.0.0)',
+	username='surajshukla',
+	password='***',
+	database='dbname'
+)
+
+# checking connection
+connection_object.isconnected()
+
+
+# creating a cursor object
+cursor_object=connection_object.cursor()
+
+# execute function
+cursor.execute(query)
+data=cursor.fetchone()
+data=cursor.fetchall()
+cursor.rollback()	# undo last transation
+cursor.commmit() 	# autocommit=FALSE(BY DEFAULT)
+cursor.rowcount	        # no of rows affected
+
+# closing cursor and connection object
+cursor_object.close()
+connection_object.close()
+#####
+
+
+sql - unified,non-procedural language used for creating,accessing,handling and managing data in relational databases
+function - set of predefined commands which perform certain operations on calling
+library functions - inbuilt functions
+
+msql functions :
+	single row functions
+	multiple row functions/aggregate functions/group functions
+
+aggregate functions:
+	max()
+	MIN()
+	avg()
+	sum()
+	count() 
+		count(columnname) - return no of non-null values in the column
+		count(*) - return no of records satisfying the condition
+		count(distinct columnname)
+
+# column alias
+
+# order by 
+	select <columnname> from <tablename>
+	where <condition>
+	order by <columnname> asc/desc;	
+
+# group by 
+
+# having clause
+	
+	- used alongwith group by 
+	- if any aggregate function is to be user  after select command then having should be use 
+	as where - evaluation of single row while aggregate function are used on group of rows
+	
+syntax :
+	select <columnname>,aggregate_funct(columnname)
+	from table
+	where <condition>
+	GROUP BY <COLUMNNAME>
+	having <condition>
+
+where vs having
+	- where works on whole table ,having works on  group only
+	- where will be executed first
+
+aggregate functions ingnore null values
+
+distinct keyword is used to ignore the duplicate values
+	

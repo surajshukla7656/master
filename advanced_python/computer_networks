@@ -1,0 +1,278 @@
+# advantages of computer network :i
+1.resource sharing 
+2.improved communicaions
+3.reduced communication cost
+4.reliability of data
+5.central storage data
+
+# terminologies 
+nodes(workstations) : computer attached to a network
+
+NIU-Network Interface Unit(MAC address) : an interpreter that helps in establishing communication between server and client
+
+IP address : every machine on a TCP bar network has a unique identfying number 
+
+domain name 
+
+# abbreviations 
+
+1. WLAN : Wireless LAN
+2. NIC : NETWORK INTERFACE CARD 
+3. OSI : open system interconnection
+4. TCP : transmission control protocol
+5. HTTP : Hypertext Transfer Protocol 
+6. HTTPs : 
+7. SMTP : Simple Mail Transfer Protocol
+8. PPP : Point to Point Protocol
+9. FTP : File Transfer Protocol 
+10. VOIP : Voice Over IP
+11. POP : Post Office Protocol 
+12. IMAP : Internet Mail Transfer Protocol
+13. SCP : Session Control Protocol 
+14. SSH : Secure Shell
+15. NFC : near field Communication
+16. TDMA : Time Division Multiple Access
+17. CDMA : Code Division Multiple Access 
+18. FDMA : Frequency Division Multiple Access 
+19. Telnet : remote login protocol
+
+# structure of network 
+sender
+reciever
+message
+transmission medium
+protocol
+
+# types of networks
+
+PAN : 
+	- 10m, bluetooth wifi
+	-
+LAN : 
+	- hospital,school
+	- guided , unguided 
+MAN :
+	- guided,unguided
+  	- within a city 
+	- interconnects LAN
+WAN :
+	- large geographical area
+	- eg . internet
+	- interconnects all computer within the globe
+
+parameter                          pan                                 lan                                      man                                     wan 
+
+area covered         		10 m    			building or campus(10 km)                 city(upto 100 km)                       entire country or globe
+networking cost			negligible			inexpensive				expensive				very expensive
+transmission speed		high				high 					moderate 				low
+error rate			lowest				lowest					moderate				highest
+network devices used		wlan,usb,dongle			lan/wlan,hub/switch,repeater,modem 	router,gateway				router,gateway
+technology media used		infrared,bluetooth		ethernet,wifi				optical fibre,radiowave,microwave	microwave,satellite
+
+
+# transmission medium or channel 
+	dependence :
+		data transfer speed 
+		bandwidth
+		distance
+		cost
+## wired media/physical/conducted(guided)/ethernet network
+
+# twisted pair cable/ethernet cable
+
+	- sheilded or unshielded 
+	- advantages :
+		- low cost,low weight,flexible
+		- easy to install and maintain
+
+	- disadvantages :
+		- short distances(upto 70m)
+		- for longer distances repeater is used
+		- supports low bandwidth 
+		- speed upto 100 mbps
+
+# coaxial cable(or coax)
+
+	- used in cable tv transmission
+	- two solid insulated conductors(common axis) 
+	- inner conductor straight wire surrounded by wired mesh
+	- inner core carries the signal and mesh provides the ground
+	
+	advantages :
+		- high bandwidth,longer distance(185-200)
+		- less susceptible to EM fields
+
+	disadvantages :
+		- less flexible,expensive 
+		- thick 
+		- difficult to install ,less flexibility
+
+# optical fibre cable
+
+	- optica fibre : long,thin strands/fibres of plastic/glass
+	- optical fibre cable : arranged in bundle 
+	- signals are modulated and transmitted in the form of light pulses from source using LED or LASER BEAM
+	
+	OPTICAL FIBRE : 
+		CORE(PLASTIC OR GLASS) : thin glass rod at the cente through which the light travels
+		CLADDING : outer optical material surrounding the core that reflects teh light back
+		BUFFER COATING : plastic coating protects the cable from damage and moisture
+
+	advantages : 
+		
+		- free from EMI since no electrical signal are carried 
+		- secure ,high-speed transmission 
+		- very long distance
+		- most efficent 
+	
+	disadvantages :
+		
+		most expensive cable 
+		- breakable
+		- installation procedure complicated
+		- high maintenance cost
+
+# radio waves
+
+	advantages :
+		- covers larger span of area and mobility
+		- propagate in omni directions
+		- transmitter and reciever antenna do not need to be physically aligned
+		- cheapet
+		- penetrate walls
+		
+	disadvantages :
+		- unsecure 
+		- susceptible 
+		- permission required
+# microwaves 
+
+	advantages :
+		- cheap
+		-  high data transmission speed
+
+	disadvantages :
+		- unsecured communication
+		- affected by weather 
+# infrared 
+
+	- short range
+  	- do not pass through solid
+	- line of sight transmission
+	- no government licence 
+	- within short range
+
+	- only two devices can communicate
+	
+# bluetooth
+
+	- establish PAN
+	- 10 m
+
+	advantages :
+		- data transfer rate is slow
+		- connect upto 8 devices
+
+# wifi (wireless fidelity) - long distance(150-200)
+
+# satellite link
+
+	- microwave 
+	- dth,vsat,gps,satellite phones
+	advantages :
+		- covers larger geographical area
+		- secure high quality transmission
+		- 
+	disadvantages :
+		- very expensive 
+		- slower than microwave transmission
+		- legal permission
+		- 
+
+# advantages of client-server model
+	- central server
+	- easy troubleshooting
+
+# cloud computing - data is a service everything is a service
+	privately owned spaces : cloud
+	
+	PUBLIC CLOUD : common cloud service provided to multiple users on a network. operated by a third party 
+		       in this , memory,hardware devices and network devices are shared by all the client(subscribers)
+	
+	PRIVATE CLOUD : virtual private interface provided by a individual or owned by organisation 
+			eg VPN
+
+	basics concept of cloud computing :
+
+		iaas(infrastructure as a service) : a computer infrastruture eg.windows azure,amazon ec2
+		pass(platform as a service) : integrated platform for the development,deployment and support of web applications eg, google app engine,force.com,windows azure
+		saas(software as  a service) : eg.google app,microsoft office
+		daas(desktop as a service) : multiple services at same time(successor of saas)
+
+	pros :
+		instant access to the entiretyof human knowledge
+		- instant access to almost every of piece of media ever created(film,books)
+		- instant access to friends and family in the world
+	
+	drawbacks :
+		- privacy and security
+		- no internet no access 
+
+# iot
+
+
+# network devices 
+
+1. NIC : a device that enables a computer to connect to a network and communicate
+	network interface card/lan card/network interface unit(NIU) uses mac address
+	alternative WLAN 
+
+2. hub : connects multiple computers to form lan via nic, do not manage traffic, send data to each port 
+
+3. switch : intelligent hub
+
+4. repeater : regenerates(amplification) and retransmits 
+
+5. gateway : connects two network
+
+6. router : forward data packets to source machine to the destination path through shortest path 
+	    network layer device 
+	    connects two lans,mans,wans
+
+7. wireless access point (WAP) : wireless newtwork to the wired network using wifi standard,wireless router, medium - air
+
+# mac - media access control address - 48 bit address
+	- communications between two nodes in network
+	- hardware address/phycsical address in every nic card(ethernet card and wifi card)
+	
+# routing : finding apporiate path to deliver data packet
+
+# ip address
+	- 32 bits,uniquely identified
+
+# domain name system(DNS)
+
+	DOMAIN NAME RESOLUTION - finding ip address from domain name
+	
+	eg, http://www.google.com/welcome.htm (url)
+
+		primary domain name/top level domain : com
+		sub domain of com : google
+		sub domain of google : www
+		protocols used : http 
+		pathname : welcome.htm
+
+		
+# network congestion : traffic james and poor network service 
+
+# net-tools
+	traceroute <domainname>
+	nslookup <ipaddress/domainname>
+	ping <ipaddress>
+	ipconfig 
+	netstat
+
+	speedtest.net,pingtest.net
+
+# application layer
+

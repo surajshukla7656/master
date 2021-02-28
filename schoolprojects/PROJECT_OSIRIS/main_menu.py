@@ -43,8 +43,8 @@ def menu():
 
             print(f'Error : {error}')
 
-        except :
+        except Exception as error:
 
-            print('Error')
+            print(f'Error : {error}')
         
 menu()

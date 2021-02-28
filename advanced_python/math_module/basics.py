@@ -1,4 +1,4 @@
-'''
+''
 Method	                              checklist                     Description
 math.acos()	                                                        Returns the arc cosine of a number
 math.acosh()	                                                    Returns the inverse hyperbolic cosine of a number

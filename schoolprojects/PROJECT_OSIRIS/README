@@ -1,4 +1,4 @@
---------> THIS IS A PYTHON-SQL DATABASE PROGRAM TO MAINTAIN A DATABASE OF ELECTRONICS LIKE LAPTOP AND MOBILE <--------
+--------> THIS IS A PYTHON-SQL DATABASE PROGRAM TO MAINTAIN A DATABASE OF LAPTOP ELECTRONICS AND ITS TRANSACTION  <--------
 
 
 ---> operator_manager() - processes the input command (of the menu prompt)
@@ -133,7 +133,7 @@
 
 1. transaction() 
 
-    PARAMETERS:
+    PARAMETERS: 
 
         1.purchaseid-Default
         2.customername
@@ -144,7 +144,7 @@
 
 2. transactions(customername=None,customeremail=None,customerphone=None)
 
-3. all_purchases() - it display all the purchases made 
+3. all_transactions() - it display all the purchases made 
 
 4. trans() - to see the available commands for transactions
 
