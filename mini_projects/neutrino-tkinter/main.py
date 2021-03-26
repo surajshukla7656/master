@@ -1,9 +1,13 @@
+'''python program to create a simple graphical calculator
+that can perform simple functions ''' 
+
+# modules used 
 import random
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as errorwindow
 
-
+# creating a main window object - win 
 win=tk.Tk()
 win.title("CALCULATOR:CREATED BY SURAJ SHUKLA")
 win.geometry("800x500")
@@ -16,8 +20,8 @@ main_frame.grid(row=0, column=0)
 
 
 # entrybox for input and displaying of data
-entry_value=tk.StringVar()
-entry_main_=tk.Entry(main_frame,width=40,font=("calibri",20),borderwidth=10,textvariable=entry_value)
+entry_box=tk.StringVar()
+entry_main_=tk.Entry(main_frame,width=40,font=("calibri",20),borderwidth=10,textvariable=entry_box)
 entry_main_.focus()
 entry_main_.grid(row=1, columnspan=4,ipady=20)
 
@@ -47,7 +51,7 @@ nummeric_pad={
 
 # function performed by button_eq
 def button_eq_func(event):
-    input_data=entry_value.get()
+    input_data=entry_box.get()
     entry_main_.delete(0,"end")
     try:
         output_data=eval(input_data)
@@ -64,7 +68,7 @@ entry_main_.bind("<Return>",button_eq_func)
 
 # function to remove last entered value from the  main entrybox
 def back(event):
-    input_data=entry_value.get()
+    input_data=entry_box.get()
     entry_main_.delete(0,"end")
     entry_main_.insert(tk.END,input_data[:-1])
 #binding backspace key to the func back
@@ -99,5 +103,5 @@ def button_constructor(contructor_dict,labelframe,row_count,column_count,column_
 
 button_constructor(nummeric_pad,main_frame,3,1,4)
     
-
+# runs the windows infinite times
 win.mainloop()
