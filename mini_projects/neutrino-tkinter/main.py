@@ -99,8 +99,6 @@ def button_constructor(contructor_dict,labelframe,row_count,column_count,column_
             column_count=1
 
 
-
-
 button_constructor(nummeric_pad,main_frame,3,1,4)
     
 # runs the windows infinite times
