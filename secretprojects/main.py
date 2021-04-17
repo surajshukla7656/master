@@ -11,7 +11,6 @@ from tkinter import messagebox as errorwindow
 win=tk.Tk()
 win.title("CALCULATOR:CREATED BY SURAJ SHUKLA")
 win.geometry("800x500")
-win.resizable(width=False,height=False)
 
 
 # labelframe consisting buttons and entrybox 
